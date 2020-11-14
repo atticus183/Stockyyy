@@ -16,6 +16,8 @@ final class StocksDatasource: NSObject {
     
     private var diffableDataSource: UITableViewDiffableDataSource<Section, Company>?
     
+    private var realm: Realm?
+    
     private var allCompanies: Results<Company>?
     
     private let tableView: UITableView
@@ -23,12 +25,16 @@ final class StocksDatasource: NSObject {
     init(in tableView: UITableView) {
         self.tableView = tableView
         super.init()
+        realm = MyRealm.getConfig()
+        allCompanies = realm?.objects(Company.self)
         loadDatasource()
     }
     
     private func loadDatasource() {
-        diffableDataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, company) -> UITableViewCell? in
+        diffableDataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, company) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.identifier, for: indexPath) as? StockCell else { return UITableViewCell() }
+            
+            cell.company = self?.allCompanies?[indexPath.row]
             
             return cell
         })

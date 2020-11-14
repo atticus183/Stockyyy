@@ -14,6 +14,8 @@ protocol StocksListVCDelegate: class {
 
 final class StocksListVC: UIViewController {
     
+    var realm: Realm?
+    
     weak var delegate: StocksListVCDelegate?
     var datasource: StocksDatasource?
     
@@ -27,6 +29,9 @@ final class StocksListVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        realm = MyRealm.getConfig()
+        Company.addTestData()
         
         self.view.backgroundColor = .systemBackground
         
@@ -61,5 +66,9 @@ final class StocksListVC: UIViewController {
 extension StocksListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO: Tap cell and pass data
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75.0
     }
 }
