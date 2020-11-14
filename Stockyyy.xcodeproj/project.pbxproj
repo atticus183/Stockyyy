@@ -19,6 +19,11 @@
 		12414439255F68EF00966F10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12414437255F68EF00966F10 /* LaunchScreen.storyboard */; };
 		12414444255F68EF00966F10 /* StockyyyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12414443255F68EF00966F10 /* StockyyyTests.swift */; };
 		1241444F255F68F000966F10 /* StockyyyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1241444E255F68F000966F10 /* StockyyyUITests.swift */; };
+		1246DAD1255FA1D8003FE408 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAD0255FA1D8003FE408 /* StockCell.swift */; };
+		1246DADA255FA260003FE408 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAD9255FA260003FE408 /* Company.swift */; };
+		1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */; };
+		1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */; };
+		125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E365D25603DD2007F7360 /* CompanyJSONModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +59,11 @@
 		1241444A255F68F000966F10 /* StockyyyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockyyyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1241444E255F68F000966F10 /* StockyyyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockyyyUITests.swift; sourceTree = "<group>"; };
 		12414450255F68F000966F10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1246DAD0255FA1D8003FE408 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
+		1246DAD9255FA260003FE408 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
+		1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDatasource.swift; sourceTree = "<group>"; };
+		125E365D25603DD2007F7360 /* CompanyJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyJSONModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +127,11 @@
 		1241442B255F68EF00966F10 /* Stockyyy */ = {
 			isa = PBXGroup;
 			children = (
+				1246DAEB255FA4D5003FE408 /* Datasource */,
+				1246DAEA255FA4CF003FE408 /* Networking */,
+				1246DAE1255FA265003FE408 /* RealmConfig */,
+				1246DAD5255FA240003FE408 /* Model */,
+				1246DACE255FA1B8003FE408 /* Views */,
 				1201FD78255F71880097EACD /* ViewControllers */,
 				1241442C255F68EF00966F10 /* AppDelegate.swift */,
 				1241442E255F68EF00966F10 /* SceneDelegate.swift */,
@@ -143,6 +158,70 @@
 				12414450255F68F000966F10 /* Info.plist */,
 			);
 			path = StockyyyUITests;
+			sourceTree = "<group>";
+		};
+		1246DACE255FA1B8003FE408 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1246DACF255FA1BF003FE408 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1246DACF255FA1BF003FE408 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1246DAD0255FA1D8003FE408 /* StockCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		1246DAD5255FA240003FE408 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1246DAD8255FA253003FE408 /* Realm */,
+				1246DAD6255FA247003FE408 /* JSON */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1246DAD6255FA247003FE408 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				125E365D25603DD2007F7360 /* CompanyJSONModel.swift */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		1246DAD8255FA253003FE408 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				1246DAD9255FA260003FE408 /* Company.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		1246DAE1255FA265003FE408 /* RealmConfig */ = {
+			isa = PBXGroup;
+			children = (
+				1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */,
+			);
+			path = RealmConfig;
+			sourceTree = "<group>";
+		};
+		1246DAEA255FA4CF003FE408 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		1246DAEB255FA4D5003FE408 /* Datasource */ = {
+			isa = PBXGroup;
+			children = (
+				1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */,
+			);
+			path = Datasource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,8 +364,13 @@
 			files = (
 				1201FD84255F72520097EACD /* CompanyInfoVC.swift in Sources */,
 				1201FD7F255F72070097EACD /* StocksListVC.swift in Sources */,
+				1246DAD1255FA1D8003FE408 /* StockCell.swift in Sources */,
+				125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */,
 				1201FD7A255F71A40097EACD /* SplitVC.swift in Sources */,
+				1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */,
+				1246DADA255FA260003FE408 /* Company.swift in Sources */,
 				1241442D255F68EF00966F10 /* AppDelegate.swift in Sources */,
+				1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */,
 				1241442F255F68EF00966F10 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

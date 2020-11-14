@@ -6,19 +6,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol StocksListVCDelegate: class {
     func stockTapped(_ stock: String)   //TODO: Change this to the stock type
 }
 
-class StocksListVC: UIViewController {
+final class StocksListVC: UIViewController {
     
     weak var delegate: StocksListVCDelegate?
+    var datasource: StocksDatasource?
     
     private let tableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.backgroundColor = .systemBackground
-        //TODO: Register cell
+        tv.register(StockCell.self, forCellReuseIdentifier: StockCell.identifier)
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
@@ -30,6 +32,8 @@ class StocksListVC: UIViewController {
         
         setupNavBar()
         setupTableView()
+        
+        datasource = StocksDatasource(in: tableView)
     }
     
     private func setupNavBar() {
@@ -41,6 +45,9 @@ class StocksListVC: UIViewController {
     private func setupTableView() {
         self.view.addSubview(tableView)
         
+        //MARK: TableView Delegate
+        tableView.delegate = self
+        
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
@@ -49,4 +56,10 @@ class StocksListVC: UIViewController {
         ])
     }
     
+}
+
+extension StocksListVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //TODO: Tap cell and pass data
+    }
 }
