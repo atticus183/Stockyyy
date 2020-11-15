@@ -16,6 +16,8 @@ final class StocksListVC: UIViewController {
     
     var realm: Realm?
     
+    lazy var stocksNetworkManager = StocksNetworkManager.shared
+    
     weak var delegate: StocksListVCDelegate?
     var datasource: StocksDatasource?
     
@@ -31,14 +33,29 @@ final class StocksListVC: UIViewController {
         super.viewDidLoad()
         
         realm = MyRealm.getConfig()
-        Company.addTestData()
+        try! realm?.write {
+            realm?.deleteAll()
+        }
+        
+        print("Realm file path: \(String(describing: realm?.configuration.fileURL))")
         
         self.view.backgroundColor = .systemBackground
         
         setupNavBar()
         setupTableView()
         
-        datasource = StocksDatasource(in: tableView)
+        stocksNetworkManager.getData(from: .stockList) { [weak self] (result) in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self?.datasource = StocksDatasource()
+                    self?.tableView.dataSource = self?.datasource
+                    self?.tableView.reloadData()
+                }
+            case .failure:
+                break
+            }
+        }
     }
     
     private func setupNavBar() {
@@ -56,7 +73,7 @@ final class StocksListVC: UIViewController {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0)
         ])
     }

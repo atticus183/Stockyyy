@@ -24,3 +24,12 @@ struct CompanyJSONModel: Codable {
     var imageURL: String?
     var ipoDate: Date?
 }
+
+extension CompanyJSONModel {
+    //Used to convert the provided string date to a Date object when decoding.
+    static var dateFormatter: DateFormatter {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy/MM/ddd"
+        return df
+    }
+}

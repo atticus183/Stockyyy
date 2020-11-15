@@ -73,18 +73,18 @@ extension Company {
 }
 
 
-extension Company {
-    static func addTestData() {
-        guard let realm = MyRealm.getConfig() else { return }
-        
-        if realm.objects(Company.self).count < 2 {
-            try! realm.write {
-                let appl = Company(symbol: "AAPL", name: "Apple Inc", price: 119.092, exchange: "Nasdaq Global Select")
-                let longCompany = Company(symbol: "MFOT", name: "Super duper long company name that would overlap the price label", price: 12345.67, exchange: "NASDAQ 2.0")
-                
-                realm.add(appl)
-                realm.add(longCompany)
-            }
-        }
-    }
-}
+//extension Company {
+//    static func addTestData() {
+//        guard let realm = MyRealm.getConfig() else { return }
+//        
+//        if realm.objects(Company.self).count < 2 {
+//            try! realm.write {
+//                let appl = Company(symbol: "AAPL", name: "Apple Inc", price: 119.092, exchange: "Nasdaq Global Select")
+//                let longCompany = Company(symbol: "MFOT", name: "Super duper long company name that would overlap the price label", price: 12345.67, exchange: "NASDAQ 2.0")
+//                
+//                realm.add(appl)
+//                realm.add(longCompany)
+//            }
+//        }
+//    }
+//}

@@ -25,7 +25,7 @@ final class StockCell: UITableViewCell {
     //Symbol lbl
     lazy var symbolLbl: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.textColor = .label
         label.numberOfLines = 1
         label.textAlignment = .left
@@ -37,7 +37,7 @@ final class StockCell: UITableViewCell {
     //Full company name lbl
     lazy var companyNameLbl: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = .label
         label.numberOfLines = 1
         label.sizeToFit()

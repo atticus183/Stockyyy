@@ -8,50 +8,28 @@
 import RealmSwift
 import UIKit
 
-enum Section: CaseIterable {
-    case main
-}
 
-final class StocksDatasource: NSObject {
-    
-    private var diffableDataSource: UITableViewDiffableDataSource<Section, Company>?
+final class StocksDatasource: NSObject, UITableViewDataSource {
     
     private var realm: Realm?
     
     private var allCompanies: Results<Company>?
     
-    private let tableView: UITableView
-    
-    init(in tableView: UITableView) {
-        self.tableView = tableView
+    override init() {
         super.init()
         realm = MyRealm.getConfig()
-        allCompanies = realm?.objects(Company.self)
-        loadDatasource()
+        allCompanies = realm?.objects(Company.self).sorted(byKeyPath: "symbol", ascending: true)
     }
     
-    private func loadDatasource() {
-        diffableDataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, company) -> UITableViewCell? in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.identifier, for: indexPath) as? StockCell else { return UITableViewCell() }
-            
-            cell.company = self?.allCompanies?[indexPath.row]
-            
-            return cell
-        })
-        
-        createSnapshot()
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allCompanies?.count ?? 0
     }
     
-    private func createSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Company>()
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.identifier, for: indexPath) as? StockCell else { return UITableViewCell() }
         
-        //Create Sections first
-        let sections = Section.allCases
-        sections.forEach{( snapshot.appendSections([$0]) )}
+        cell.company = allCompanies?[indexPath.row]
         
-        allCompanies?.forEach({ snapshot.appendItems( [$0]) })
-        
-        diffableDataSource?.apply(snapshot, animatingDifferences: true, completion: nil)
+        return cell
     }
-
 }

@@ -24,6 +24,8 @@
 		1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */; };
 		1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */; };
 		125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E365D25603DD2007F7360 /* CompanyJSONModel.swift */; };
+		12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */; };
+		12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A63733256085EA00ECDDE1 /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDatasource.swift; sourceTree = "<group>"; };
 		125E365D25603DD2007F7360 /* CompanyJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyJSONModel.swift; sourceTree = "<group>"; };
+		12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksNetworkManager.swift; sourceTree = "<group>"; };
+		12A63733256085EA00ECDDE1 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +216,8 @@
 		1246DAEA255FA4CF003FE408 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */,
+				12A63733256085EA00ECDDE1 /* APIKey.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -366,11 +372,13 @@
 				1201FD7F255F72070097EACD /* StocksListVC.swift in Sources */,
 				1246DAD1255FA1D8003FE408 /* StockCell.swift in Sources */,
 				125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */,
+				12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */,
 				1201FD7A255F71A40097EACD /* SplitVC.swift in Sources */,
 				1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */,
 				1246DADA255FA260003FE408 /* Company.swift in Sources */,
 				1241442D255F68EF00966F10 /* AppDelegate.swift in Sources */,
 				1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */,
+				12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */,
 				1241442F255F68EF00966F10 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

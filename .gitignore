@@ -64,6 +64,10 @@ DerivedData/
 *.dSYM.zip
 *.dSYM
 
+##Swift files to ignore
+APIKey.swift
+
+
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
