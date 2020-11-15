@@ -23,6 +23,10 @@
 		1246DADA255FA260003FE408 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAD9255FA260003FE408 /* Company.swift */; };
 		1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */; };
 		1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */; };
+		124E34092561971D00FB35CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E34082561971D00FB35CE /* Constants.swift */; };
+		124E340E2561977B00FB35CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E340D2561977B00FB35CE /* Extensions.swift */; };
+		124E34132561998900FB35CE /* NetworkRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E34122561998900FB35CE /* NetworkRefresh.swift */; };
+		124E341C2561BF5800FB35CE /* CustomActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E341B2561BF5800FB35CE /* CustomActivityView.swift */; };
 		125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E365D25603DD2007F7360 /* CompanyJSONModel.swift */; };
 		12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */; };
 		12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A63733256085EA00ECDDE1 /* APIKey.swift */; };
@@ -65,6 +69,10 @@
 		1246DAD9255FA260003FE408 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDatasource.swift; sourceTree = "<group>"; };
+		124E34082561971D00FB35CE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		124E340D2561977B00FB35CE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		124E34122561998900FB35CE /* NetworkRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRefresh.swift; sourceTree = "<group>"; };
+		124E341B2561BF5800FB35CE /* CustomActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityView.swift; sourceTree = "<group>"; };
 		125E365D25603DD2007F7360 /* CompanyJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyJSONModel.swift; sourceTree = "<group>"; };
 		12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksNetworkManager.swift; sourceTree = "<group>"; };
 		12A63733256085EA00ECDDE1 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -131,6 +139,7 @@
 		1241442B255F68EF00966F10 /* Stockyyy */ = {
 			isa = PBXGroup;
 			children = (
+				124E34072561970E00FB35CE /* Resources */,
 				1246DAEB255FA4D5003FE408 /* Datasource */,
 				1246DAEA255FA4CF003FE408 /* Networking */,
 				1246DAE1255FA265003FE408 /* RealmConfig */,
@@ -168,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				1246DACF255FA1BF003FE408 /* Cells */,
+				124E341B2561BF5800FB35CE /* CustomActivityView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,6 +228,7 @@
 			children = (
 				12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */,
 				12A63733256085EA00ECDDE1 /* APIKey.swift */,
+				124E34122561998900FB35CE /* NetworkRefresh.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -228,6 +239,15 @@
 				1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */,
 			);
 			path = Datasource;
+			sourceTree = "<group>";
+		};
+		124E34072561970E00FB35CE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				124E34082561971D00FB35CE /* Constants.swift */,
+				124E340D2561977B00FB35CE /* Extensions.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,13 +393,17 @@
 				1246DAD1255FA1D8003FE408 /* StockCell.swift in Sources */,
 				125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */,
 				12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */,
+				124E34132561998900FB35CE /* NetworkRefresh.swift in Sources */,
+				124E341C2561BF5800FB35CE /* CustomActivityView.swift in Sources */,
 				1201FD7A255F71A40097EACD /* SplitVC.swift in Sources */,
 				1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */,
+				124E34092561971D00FB35CE /* Constants.swift in Sources */,
 				1246DADA255FA260003FE408 /* Company.swift in Sources */,
 				1241442D255F68EF00966F10 /* AppDelegate.swift in Sources */,
 				1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */,
 				12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */,
 				1241442F255F68EF00966F10 /* SceneDelegate.swift in Sources */,
+				124E340E2561977B00FB35CE /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

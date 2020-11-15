@@ -33,9 +33,9 @@ final class StocksListVC: UIViewController {
         super.viewDidLoad()
         
         realm = MyRealm.getConfig()
-        try! realm?.write {
-            realm?.deleteAll()
-        }
+//        try! realm?.write {
+//            realm?.deleteAll()
+//        }
         
         print("Realm file path: \(String(describing: realm?.configuration.fileURL))")
         
@@ -44,16 +44,20 @@ final class StocksListVC: UIViewController {
         setupNavBar()
         setupTableView()
         
+        CustomActivityView.startActivityView()
         stocksNetworkManager.getData(from: .stockList) { [weak self] (result) in
             switch result {
             case .success:
                 DispatchQueue.main.async {
+                    CustomActivityView.stopActivityView()
                     self?.datasource = StocksDatasource()
                     self?.tableView.dataSource = self?.datasource
                     self?.tableView.reloadData()
                 }
             case .failure:
-                break
+                DispatchQueue.main.async {
+                    CustomActivityView.stopActivityView()
+                }
             }
         }
     }

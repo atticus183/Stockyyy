@@ -16,6 +16,8 @@ final class StocksNetworkManager {
     static let shared = StocksNetworkManager()
     private init() {}
     
+    private var realm = MyRealm.getConfig()
+    
     private var apiKey = FinancialModelingPrep.APIKEY
     
     //MARK: Endpoint paths
@@ -36,6 +38,15 @@ final class StocksNetworkManager {
     private let baseURL = "https://financialmodelingprep.com/api/v3/"
     
     func getData(from endPoint: Endpoint, completion: @escaping (Result<Void, StockError>) -> Void) {
+        //Check if refresh is allowed
+        let networkRefresh = NetworkRefresh(with: UDKeys.stockSymbolRefreshDate)
+        
+        //Only request from endpoint if >= 1 day old or if the user's realm is empty
+        guard networkRefresh.isRefreshNeeded || realm?.objects(Company.self).count == 0 else {
+            completion(.success(()))
+            return
+        }
+        
         //Check if valid URL.  If not, throw badURL error
         guard let endPointURL = URL(string: baseURL + endPoint.endpointString + "?apikey=\(apiKey)") else {
             completion(.failure(.invalidURL))
@@ -66,6 +77,7 @@ final class StocksNetworkManager {
                 let decodedJSON = try jsonDecoder.decode([CompanyJSONModel].self, from: data)
                 //Save decodedJSON to Realm model
                 try self?.saveToRealm(companyJSON: decodedJSON)
+                networkRefresh.save(refresh: Date())
                 completion(.success(()))
             } catch {
                 print("Decode Error: \(error.localizedDescription)")
@@ -83,21 +95,24 @@ final class StocksNetworkManager {
                     //Create new realm object
                     let company = Company(symbol: compJson.symbol ?? "", name: compJson.name ?? "", price: compJson.price ?? 0.0, exchange: compJson.exchange ?? "")
                     
+                    realm.add(company)
+                    
                     //If the count is 1, then the Company Profile was retrieved.
                     if companyJSON.count == 1 {
-                        company.name = compJson.name ?? ""
-                        company.price = compJson.price ?? 0.0
-                        company.exchange = compJson.exchange ?? ""
-                        company.changes = compJson.changes ?? 0.0
-                        company.currency = compJson.currency ?? ""
-                        company.website = compJson.website ?? ""
-                        company.companyDescription = compJson.companyDescription ?? ""
-                        company.ceo = compJson.ceo ?? ""
-                        company.imageURL = compJson.imageURL ?? ""
-                        company.ipoDate = compJson.ipoDate
+                        guard let symbol = compJson.symbol, let savedCompany = realm.objects(Company.self).filter("symbol == %d", symbol).first else {
+                            throw StockError.saveToRealmError
+                        }
+                        savedCompany.name = compJson.name ?? ""
+                        savedCompany.price = compJson.price ?? 0.0
+                        savedCompany.exchange = compJson.exchange ?? ""
+                        savedCompany.changes = compJson.changes ?? 0.0
+                        savedCompany.currency = compJson.currency ?? ""
+                        savedCompany.website = compJson.website ?? ""
+                        savedCompany.companyDescription = compJson.companyDescription ?? ""
+                        savedCompany.ceo = compJson.ceo ?? ""
+                        savedCompany.imageURL = compJson.imageURL ?? ""
+                        savedCompany.ipoDate = compJson.ipoDate
                     }
-                    
-                    realm.add(company)
                 }
             }
         } catch {
