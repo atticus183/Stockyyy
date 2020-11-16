@@ -15,6 +15,11 @@ final class StocksDatasource: NSObject, UITableViewDataSource {
     
     private var allCompanies: Results<Company>?
     
+    func company(at indexPath: IndexPath) -> Company? {
+        guard let company = allCompanies?[indexPath.row] else { return nil }
+        return company
+    }
+    
     override init() {
         super.init()
         realm = MyRealm.getConfig()

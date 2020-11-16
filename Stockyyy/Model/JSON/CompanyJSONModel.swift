@@ -19,9 +19,9 @@ struct CompanyJSONModel: Codable {
     var changes: Double?
     var currency: String?
     var website: String?
-    var companyDescription: String?
+    var description: String?
     var ceo: String?
-    var imageURL: String?
+    var image: String?
     var ipoDate: Date?
 }
 

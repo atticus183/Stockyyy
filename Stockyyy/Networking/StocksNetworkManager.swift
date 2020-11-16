@@ -42,9 +42,14 @@ final class StocksNetworkManager {
         let networkRefresh = NetworkRefresh(with: UDKeys.stockSymbolRefreshDate)
         
         //Only request from endpoint if >= 1 day old or if the user's realm is empty
-        guard networkRefresh.isRefreshNeeded || realm?.objects(Company.self).count == 0 else {
-            completion(.success(()))
-            return
+        switch endPoint {
+        case .stockList:
+            guard networkRefresh.isRefreshNeeded || realm?.objects(Company.self).count == 0 else {
+                completion(.success(()))
+                return
+            }
+        default:
+            break
         }
         
         //Check if valid URL.  If not, throw badURL error
@@ -92,11 +97,6 @@ final class StocksNetworkManager {
         do {
             try realm.write {
                 for compJson in companyJSON {
-                    //Create new realm object
-                    let company = Company(symbol: compJson.symbol ?? "", name: compJson.name ?? "", price: compJson.price ?? 0.0, exchange: compJson.exchange ?? "")
-                    
-                    realm.add(company)
-                    
                     //If the count is 1, then the Company Profile was retrieved.
                     if companyJSON.count == 1 {
                         guard let symbol = compJson.symbol, let savedCompany = realm.objects(Company.self).filter("symbol == %d", symbol).first else {
@@ -108,10 +108,16 @@ final class StocksNetworkManager {
                         savedCompany.changes = compJson.changes ?? 0.0
                         savedCompany.currency = compJson.currency ?? ""
                         savedCompany.website = compJson.website ?? ""
-                        savedCompany.companyDescription = compJson.companyDescription ?? ""
+                        savedCompany.companyDescription = compJson.description ?? ""
                         savedCompany.ceo = compJson.ceo ?? ""
-                        savedCompany.imageURL = compJson.imageURL ?? ""
+                        savedCompany.imageURL = compJson.image ?? ""
                         savedCompany.ipoDate = compJson.ipoDate
+                    } else {
+                        //Create new realm object
+                        let company = Company(symbol: compJson.symbol ?? "", name: compJson.name ?? "", price: compJson.price ?? 0.0, exchange: compJson.exchange ?? "")
+                        
+                        realm.add(company)
+                        
                     }
                 }
             }

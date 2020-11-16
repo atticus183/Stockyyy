@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 protocol StocksListVCDelegate: class {
-    func stockTapped(_ stock: String)   //TODO: Change this to the stock type
+    func stockTapped(_ company: Company)
 }
 
 final class StocksListVC: UIViewController {
@@ -86,7 +86,26 @@ final class StocksListVC: UIViewController {
 
 extension StocksListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: Tap cell and pass data
+        guard let tappedCompany = datasource?.company(at: indexPath) else { return }
+        
+        stocksNetworkManager.getData(from: .companyProfile(tappedCompany.symbol)) { [weak self] (result) in
+            switch result {
+            case .success():
+                DispatchQueue.main.async {
+                    guard let closureRealm = MyRealm.getConfig() else { return }
+                    guard let company = closureRealm.objects(Company.self).filter("symbol == %d", tappedCompany.symbol).first else { return }
+                    self?.delegate?.stockTapped(company)
+                    guard let companyInfoVC = self?.delegate as? CompanyInfoVC else { return }
+                    //        guard let companyInfoVCNavigationController = companyInfoVC.navigationController else { return }
+                    self?.splitViewController?.showDetailViewController(companyInfoVC, sender: nil)
+                }
+            case .failure(let error):
+                print("Error: \(error.errorDescription)")
+                DispatchQueue.main.async {
+                    CustomActivityView.stopActivityView()
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

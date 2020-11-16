@@ -19,6 +19,7 @@
 		12414439255F68EF00966F10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12414437255F68EF00966F10 /* LaunchScreen.storyboard */; };
 		12414444255F68EF00966F10 /* StockyyyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12414443255F68EF00966F10 /* StockyyyTests.swift */; };
 		1241444F255F68F000966F10 /* StockyyyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1241444E255F68F000966F10 /* StockyyyUITests.swift */; };
+		1246D60E2561EAE6001066A3 /* CompanyDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246D60D2561EAE6001066A3 /* CompanyDetailTitleView.swift */; };
 		1246DAD1255FA1D8003FE408 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAD0255FA1D8003FE408 /* StockCell.swift */; };
 		1246DADA255FA260003FE408 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAD9255FA260003FE408 /* Company.swift */; };
 		1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */; };
@@ -65,6 +66,7 @@
 		1241444A255F68F000966F10 /* StockyyyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockyyyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1241444E255F68F000966F10 /* StockyyyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockyyyUITests.swift; sourceTree = "<group>"; };
 		12414450255F68F000966F10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1246D60D2561EAE6001066A3 /* CompanyDetailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailTitleView.swift; sourceTree = "<group>"; };
 		1246DAD0255FA1D8003FE408 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
 		1246DAD9255FA260003FE408 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				1246DACF255FA1BF003FE408 /* Cells */,
 				124E341B2561BF5800FB35CE /* CustomActivityView.swift */,
+				1246D60D2561EAE6001066A3 /* CompanyDetailTitleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1201FD84255F72520097EACD /* CompanyInfoVC.swift in Sources */,
+				1246D60E2561EAE6001066A3 /* CompanyDetailTitleView.swift in Sources */,
 				1201FD7F255F72070097EACD /* StocksListVC.swift in Sources */,
 				1246DAD1255FA1D8003FE408 /* StockCell.swift in Sources */,
 				125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */,
