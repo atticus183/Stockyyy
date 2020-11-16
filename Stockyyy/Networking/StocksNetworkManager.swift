@@ -9,15 +9,12 @@
 //https://financialmodelingprep.com/developer/docs
 
 import Foundation
-import RealmSwift
 
 final class StocksNetworkManager {
     
     static let shared = StocksNetworkManager()
     private init() {}
-    
-    private var realm = MyRealm.getConfig()
-    
+
     private var apiKey = FinancialModelingPrep.APIKEY
     
     //MARK: Endpoint paths
@@ -37,28 +34,14 @@ final class StocksNetworkManager {
     
     private let baseURL = "https://financialmodelingprep.com/api/v3/"
     
-    func getData(from endPoint: Endpoint, completion: @escaping (Result<Void, StockError>) -> Void) {
-        //Check if refresh is allowed
-        let networkRefresh = NetworkRefresh(with: UDKeys.stockSymbolRefreshDate)
-        
-        //Only request from endpoint if >= 1 day old or if the user's realm is empty
-        switch endPoint {
-        case .stockList:
-            guard networkRefresh.isRefreshNeeded || realm?.objects(Company.self).count == 0 else {
-                completion(.success(()))
-                return
-            }
-        default:
-            break
-        }
-        
+    func getData(from endPoint: Endpoint, completion: @escaping (Result<[CompanyJSON], StockError>) -> Void) {
         //Check if valid URL.  If not, throw badURL error
         guard let endPointURL = URL(string: baseURL + endPoint.endpointString + "?apikey=\(apiKey)") else {
             completion(.failure(.invalidURL))
             return
         }
         
-        URLSession.shared.dataTask(with: endPointURL) { [weak self] (data, response, error) in
+        URLSession.shared.dataTask(with: endPointURL) { (data, response, error) in
             if let _ = error {
                 completion(.failure(.requestError))
             }
@@ -76,54 +59,16 @@ final class StocksNetworkManager {
             }
             
             let jsonDecoder = JSONDecoder()
-            jsonDecoder.dateDecodingStrategy = .formatted(CompanyJSONModel.dateFormatter)
+            jsonDecoder.dateDecodingStrategy = .formatted(CompanyJSON.dateFormatter)
             
             do {
-                let decodedJSON = try jsonDecoder.decode([CompanyJSONModel].self, from: data)
-                //Save decodedJSON to Realm model
-                try self?.saveToRealm(companyJSON: decodedJSON)
-                networkRefresh.save(refresh: Date())
-                completion(.success(()))
+                let decodedJSON = try jsonDecoder.decode([CompanyJSON].self, from: data)
+                completion(.success(decodedJSON))
             } catch {
                 print("Decode Error: \(error.localizedDescription)")
                 completion(.failure(.jsonDecodeError))
             }
         }.resume()
-    }
-    
-    private func saveToRealm(companyJSON: [CompanyJSONModel]) throws {
-        guard let realm = MyRealm.getConfig() else { return }
-        
-        do {
-            try realm.write {
-                for compJson in companyJSON {
-                    //If the count is 1, then the Company Profile was retrieved.
-                    if companyJSON.count == 1 {
-                        guard let symbol = compJson.symbol, let savedCompany = realm.objects(Company.self).filter("symbol == %d", symbol).first else {
-                            throw StockError.saveToRealmError
-                        }
-                        savedCompany.name = compJson.name ?? ""
-                        savedCompany.price = compJson.price ?? 0.0
-                        savedCompany.exchange = compJson.exchange ?? ""
-                        savedCompany.changes = compJson.changes ?? 0.0
-                        savedCompany.currency = compJson.currency ?? ""
-                        savedCompany.website = compJson.website ?? ""
-                        savedCompany.companyDescription = compJson.description ?? ""
-                        savedCompany.ceo = compJson.ceo ?? ""
-                        savedCompany.imageURL = compJson.image ?? ""
-                        savedCompany.ipoDate = compJson.ipoDate
-                    } else {
-                        //Create new realm object
-                        let company = Company(symbol: compJson.symbol ?? "", name: compJson.name ?? "", price: compJson.price ?? 0.0, exchange: compJson.exchange ?? "")
-                        
-                        realm.add(company)
-                        
-                    }
-                }
-            }
-        } catch {
-            throw StockError.saveToRealmError
-        }
     }
 }
 
@@ -135,7 +80,6 @@ extension StocksNetworkManager {
         case requestError
         case dataError
         case jsonDecodeError
-        case saveToRealmError
         
         var errorDescription: String {
             switch self {
@@ -149,8 +93,6 @@ extension StocksNetworkManager {
                 return "There was an error with the data retrieved from the endpoint."
             case .jsonDecodeError:
                 return "JSON decode error."
-            case .saveToRealmError:
-                return "There was an issue saving the JSON to the user's realm."
             }
         }
     }

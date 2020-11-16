@@ -10,10 +10,10 @@ import UIKit
 
 class CompanyDetailTitleView: UIView {
     
-    var company: Company? {
+    var company: CompanyJSON? {
         didSet {
-            if let url = URL(string: company?.imageURL ?? "") {
-                companyLogoImgView.kf.setImage(with: url, placeholder: UIImage())
+            if let url = URL(string: company?.image ?? "") {
+                companyLogoImgView.kf.setImage(with: url, placeholder: UIImage(systemName: "questionmark.circle.fill"))
                 companyLogoImgViewConstraints = [
                     companyLogoImgView.heightAnchor.constraint(equalToConstant: 35),
                     companyLogoImgView.widthAnchor.constraint(equalToConstant: 35)
@@ -34,6 +34,8 @@ class CompanyDetailTitleView: UIView {
         imgView.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         imgView.backgroundColor = .clear
         imgView.contentMode = .scaleAspectFit
+        imgView.layer.cornerRadius = 5
+        imgView.clipsToBounds = true
         
         return imgView
     }()

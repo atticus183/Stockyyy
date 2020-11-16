@@ -5,35 +5,29 @@
 //  Created by Josh R on 11/13/20.
 //
 
-import RealmSwift
 import UIKit
 
 
 final class StocksDatasource: NSObject, UITableViewDataSource {
+ 
+    private var allCompanies: [CompanyJSON]
     
-    private var realm: Realm?
-    
-    private var allCompanies: Results<Company>?
-    
-    func company(at indexPath: IndexPath) -> Company? {
-        guard let company = allCompanies?[indexPath.row] else { return nil }
-        return company
+    func company(at indexPath: IndexPath) -> CompanyJSON? {
+        return allCompanies[indexPath.row]
     }
     
-    override init() {
-        super.init()
-        realm = MyRealm.getConfig()
-        allCompanies = realm?.objects(Company.self).sorted(byKeyPath: "symbol", ascending: true)
+    init(companies: [CompanyJSON]) {
+        self.allCompanies = companies.sorted(by: { $0.symbol! < $1.symbol! })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allCompanies?.count ?? 0
+        return allCompanies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.identifier, for: indexPath) as? StockCell else { return UITableViewCell() }
         
-        cell.company = allCompanies?[indexPath.row]
+        cell.company = allCompanies[indexPath.row]
         
         return cell
     }

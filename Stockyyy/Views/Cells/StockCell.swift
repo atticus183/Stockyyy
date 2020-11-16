@@ -11,7 +11,7 @@ final class StockCell: UITableViewCell {
     
     static let identifier = "StockCell"
     
-    var company: Company? {
+    var company: CompanyJSON? {
         didSet {
             guard let company = company else { return }
             symbolLbl.text = company.symbol

@@ -6,16 +6,13 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol StocksListVCDelegate: class {
-    func stockTapped(_ company: Company)
+    func tickerTapped(_ company: CompanyJSON)
 }
 
 final class StocksListVC: UIViewController {
-    
-    var realm: Realm?
-    
+
     lazy var stocksNetworkManager = StocksNetworkManager.shared
     
     weak var delegate: StocksListVCDelegate?
@@ -31,14 +28,7 @@ final class StocksListVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        realm = MyRealm.getConfig()
-//        try! realm?.write {
-//            realm?.deleteAll()
-//        }
-        
-        print("Realm file path: \(String(describing: realm?.configuration.fileURL))")
-        
+
         self.view.backgroundColor = .systemBackground
         
         setupNavBar()
@@ -47,10 +37,10 @@ final class StocksListVC: UIViewController {
         CustomActivityView.startActivityView()
         stocksNetworkManager.getData(from: .stockList) { [weak self] (result) in
             switch result {
-            case .success:
+            case .success(let companyJSON):
                 DispatchQueue.main.async {
                     CustomActivityView.stopActivityView()
-                    self?.datasource = StocksDatasource()
+                    self?.datasource = StocksDatasource(companies: companyJSON)
                     self?.tableView.dataSource = self?.datasource
                     self?.tableView.reloadData()
                 }
@@ -88,13 +78,11 @@ extension StocksListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tappedCompany = datasource?.company(at: indexPath) else { return }
         
-        stocksNetworkManager.getData(from: .companyProfile(tappedCompany.symbol)) { [weak self] (result) in
+        stocksNetworkManager.getData(from: .companyProfile(tappedCompany.symbol!)) { [weak self] (result) in
             switch result {
-            case .success():
+            case .success(let companyJSON):
                 DispatchQueue.main.async {
-                    guard let closureRealm = MyRealm.getConfig() else { return }
-                    guard let company = closureRealm.objects(Company.self).filter("symbol == %d", tappedCompany.symbol).first else { return }
-                    self?.delegate?.stockTapped(company)
+                    self?.delegate?.tickerTapped(companyJSON.first!)
                     guard let companyInfoVC = self?.delegate as? CompanyInfoVC else { return }
                     //        guard let companyInfoVCNavigationController = companyInfoVC.navigationController else { return }
                     self?.splitViewController?.showDetailViewController(companyInfoVC, sender: nil)

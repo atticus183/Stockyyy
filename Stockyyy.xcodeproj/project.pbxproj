@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1201FD68255F6EEE0097EACD /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1201FD67255F6EEE0097EACD /* Realm */; };
-		1201FD6A255F6EEE0097EACD /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1201FD69255F6EEE0097EACD /* RealmSwift */; };
 		1201FD70255F6F330097EACD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1201FD6F255F6F330097EACD /* Kingfisher */; };
 		1201FD7A255F71A40097EACD /* SplitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1201FD79255F71A40097EACD /* SplitVC.swift */; };
 		1201FD7F255F72070097EACD /* StocksListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1201FD7E255F72070097EACD /* StocksListVC.swift */; };
@@ -21,14 +19,12 @@
 		1241444F255F68F000966F10 /* StockyyyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1241444E255F68F000966F10 /* StockyyyUITests.swift */; };
 		1246D60E2561EAE6001066A3 /* CompanyDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246D60D2561EAE6001066A3 /* CompanyDetailTitleView.swift */; };
 		1246DAD1255FA1D8003FE408 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAD0255FA1D8003FE408 /* StockCell.swift */; };
-		1246DADA255FA260003FE408 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAD9255FA260003FE408 /* Company.swift */; };
-		1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */; };
 		1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */; };
 		124E34092561971D00FB35CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E34082561971D00FB35CE /* Constants.swift */; };
 		124E340E2561977B00FB35CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E340D2561977B00FB35CE /* Extensions.swift */; };
 		124E34132561998900FB35CE /* NetworkRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E34122561998900FB35CE /* NetworkRefresh.swift */; };
 		124E341C2561BF5800FB35CE /* CustomActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E341B2561BF5800FB35CE /* CustomActivityView.swift */; };
-		125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E365D25603DD2007F7360 /* CompanyJSONModel.swift */; };
+		125E365E25603DD2007F7360 /* CompanyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E365D25603DD2007F7360 /* CompanyJSON.swift */; };
 		12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */; };
 		12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A63733256085EA00ECDDE1 /* APIKey.swift */; };
 /* End PBXBuildFile section */
@@ -68,14 +64,12 @@
 		12414450255F68F000966F10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1246D60D2561EAE6001066A3 /* CompanyDetailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailTitleView.swift; sourceTree = "<group>"; };
 		1246DAD0255FA1D8003FE408 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
-		1246DAD9255FA260003FE408 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
-		1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		1246DAEC255FA4EC003FE408 /* StocksDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDatasource.swift; sourceTree = "<group>"; };
 		124E34082561971D00FB35CE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		124E340D2561977B00FB35CE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		124E34122561998900FB35CE /* NetworkRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRefresh.swift; sourceTree = "<group>"; };
 		124E341B2561BF5800FB35CE /* CustomActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityView.swift; sourceTree = "<group>"; };
-		125E365D25603DD2007F7360 /* CompanyJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyJSONModel.swift; sourceTree = "<group>"; };
+		125E365D25603DD2007F7360 /* CompanyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyJSON.swift; sourceTree = "<group>"; };
 		12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksNetworkManager.swift; sourceTree = "<group>"; };
 		12A63733256085EA00ECDDE1 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,8 +80,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1201FD70255F6F330097EACD /* Kingfisher in Frameworks */,
-				1201FD6A255F6EEE0097EACD /* RealmSwift in Frameworks */,
-				1201FD68255F6EEE0097EACD /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +136,6 @@
 				124E34072561970E00FB35CE /* Resources */,
 				1246DAEB255FA4D5003FE408 /* Datasource */,
 				1246DAEA255FA4CF003FE408 /* Networking */,
-				1246DAE1255FA265003FE408 /* RealmConfig */,
 				1246DAD5255FA240003FE408 /* Model */,
 				1246DACE255FA1B8003FE408 /* Views */,
 				1201FD78255F71880097EACD /* ViewControllers */,
@@ -196,7 +187,6 @@
 		1246DAD5255FA240003FE408 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1246DAD8255FA253003FE408 /* Realm */,
 				1246DAD6255FA247003FE408 /* JSON */,
 			);
 			path = Model;
@@ -205,25 +195,9 @@
 		1246DAD6255FA247003FE408 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				125E365D25603DD2007F7360 /* CompanyJSONModel.swift */,
+				125E365D25603DD2007F7360 /* CompanyJSON.swift */,
 			);
 			path = JSON;
-			sourceTree = "<group>";
-		};
-		1246DAD8255FA253003FE408 /* Realm */ = {
-			isa = PBXGroup;
-			children = (
-				1246DAD9255FA260003FE408 /* Company.swift */,
-			);
-			path = Realm;
-			sourceTree = "<group>";
-		};
-		1246DAE1255FA265003FE408 /* RealmConfig */ = {
-			isa = PBXGroup;
-			children = (
-				1246DAE2255FA27A003FE408 /* RealmConfiguration.swift */,
-			);
-			path = RealmConfig;
 			sourceTree = "<group>";
 		};
 		1246DAEA255FA4CF003FE408 /* Networking */ = {
@@ -270,8 +244,6 @@
 			);
 			name = Stockyyy;
 			packageProductDependencies = (
-				1201FD67255F6EEE0097EACD /* Realm */,
-				1201FD69255F6EEE0097EACD /* RealmSwift */,
 				1201FD6F255F6F330097EACD /* Kingfisher */,
 			);
 			productName = Stockyyy;
@@ -346,7 +318,6 @@
 			);
 			mainGroup = 12414420255F68EF00966F10;
 			packageReferences = (
-				1201FD66255F6EEE0097EACD /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				1201FD6E255F6F330097EACD /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 1241442A255F68EF00966F10 /* Products */;
@@ -395,14 +366,12 @@
 				1246D60E2561EAE6001066A3 /* CompanyDetailTitleView.swift in Sources */,
 				1201FD7F255F72070097EACD /* StocksListVC.swift in Sources */,
 				1246DAD1255FA1D8003FE408 /* StockCell.swift in Sources */,
-				125E365E25603DD2007F7360 /* CompanyJSONModel.swift in Sources */,
+				125E365E25603DD2007F7360 /* CompanyJSON.swift in Sources */,
 				12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */,
 				124E34132561998900FB35CE /* NetworkRefresh.swift in Sources */,
 				124E341C2561BF5800FB35CE /* CustomActivityView.swift in Sources */,
 				1201FD7A255F71A40097EACD /* SplitVC.swift in Sources */,
-				1246DAE3255FA27A003FE408 /* RealmConfiguration.swift in Sources */,
 				124E34092561971D00FB35CE /* Constants.swift in Sources */,
-				1246DADA255FA260003FE408 /* Company.swift in Sources */,
 				1241442D255F68EF00966F10 /* AppDelegate.swift in Sources */,
 				1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */,
 				12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */,
@@ -734,14 +703,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1201FD66255F6EEE0097EACD /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa.git";
-			requirement = {
-				kind = exactVersion;
-				version = 5.5.0;
-			};
-		};
 		1201FD6E255F6F330097EACD /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -753,16 +714,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1201FD67255F6EEE0097EACD /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1201FD66255F6EEE0097EACD /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
-		1201FD69255F6EEE0097EACD /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1201FD66255F6EEE0097EACD /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = RealmSwift;
-		};
 		1201FD6F255F6F330097EACD /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1201FD6E255F6F330097EACD /* XCRemoteSwiftPackageReference "Kingfisher" */;
