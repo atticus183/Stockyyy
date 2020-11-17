@@ -17,7 +17,7 @@ final class StocksDatasource: NSObject, UITableViewDataSource {
     }
     
     init(companies: [CompanyJSON]) {
-        self.allCompanies = companies.sorted(by: { $0.symbol! < $1.symbol! })
+        self.allCompanies = companies.sorted(by: { $0.symbol < $1.symbol })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

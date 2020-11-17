@@ -35,7 +35,7 @@ final class StocksListVC: UIViewController {
         setupTableView()
         
         CustomActivityView.startActivityView()
-        stocksNetworkManager.getData(from: .stockList) { [weak self] (result) in
+        stocksNetworkManager.getData(for: CompanyJSON.self, from: .stockList) { [weak self] (result) in
             switch result {
             case .success(let companyJSON):
                 DispatchQueue.main.async {
@@ -55,6 +55,7 @@ final class StocksListVC: UIViewController {
     private func setupNavBar() {
         self.title = "Stocks"
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
     }
     
@@ -78,7 +79,7 @@ extension StocksListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tappedCompany = datasource?.company(at: indexPath) else { return }
         
-        stocksNetworkManager.getData(from: .companyProfile(tappedCompany.symbol!)) { [weak self] (result) in
+        stocksNetworkManager.getData(for: CompanyJSON.self, from: .companyProfile(tappedCompany.symbol)) { [weak self] (result) in
             switch result {
             case .success(let companyJSON):
                 DispatchQueue.main.async {

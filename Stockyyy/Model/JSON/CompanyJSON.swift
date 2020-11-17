@@ -10,7 +10,7 @@ import Foundation
 
 struct CompanyJSON: Codable {
     //Properties set with Symbols List endpoint
-    var symbol: String?
+    var symbol: String
     var name: String?
     var price: Double?
     var exchange: String?
@@ -52,6 +52,12 @@ extension CompanyJSON {
     //MARK: Computed Properties
     var priceFormatted: String? {
         let nsNumber = NSNumber(value: self.price ?? 0.0)
+        
+        return priceNumberFormatter.string(from: nsNumber)
+    }
+    
+    var changesFormatted: String? {
+        let nsNumber = NSNumber(value: self.changes ?? 0.0)
         
         return priceNumberFormatter.string(from: nsNumber)
     }

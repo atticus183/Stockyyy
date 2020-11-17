@@ -14,29 +14,32 @@ final class StocksNetworkManager {
     
     static let shared = StocksNetworkManager()
     private init() {}
-
+    
     private var apiKey = FinancialModelingPrep.APIKEY
     
     //MARK: Endpoint paths
     enum Endpoint {
         case stockList
         case companyProfile(String)
+        case historicalPrices(String)
         
         var endpointString: String {
             switch self {
             case .stockList:
-                return "stock/list"
+                return "stock/list?"
             case .companyProfile(let symbol):
-                return "profile/\(symbol)"
+                return "profile/\(symbol)?"
+            case .historicalPrices(let symbol):
+                return "historical-price-full/\(symbol)?serietype=line&"
             }
         }
     }
     
     private let baseURL = "https://financialmodelingprep.com/api/v3/"
     
-    func getData(from endPoint: Endpoint, completion: @escaping (Result<[CompanyJSON], StockError>) -> Void) {
+    func getData<T: Decodable>(for type: T.Type, from endPoint: Endpoint, completion: @escaping (Result<[T], StockError>) -> Void) {
         //Check if valid URL.  If not, throw badURL error
-        guard let endPointURL = URL(string: baseURL + endPoint.endpointString + "?apikey=\(apiKey)") else {
+        guard let endPointURL = URL(string: baseURL + endPoint.endpointString + "apikey=\(apiKey)") else {
             completion(.failure(.invalidURL))
             return
         }
@@ -62,8 +65,19 @@ final class StocksNetworkManager {
             jsonDecoder.dateDecodingStrategy = .formatted(CompanyJSON.dateFormatter)
             
             do {
-                let decodedJSON = try jsonDecoder.decode([CompanyJSON].self, from: data)
-                completion(.success(decodedJSON))
+                guard let jsonString = String(data: data, encoding: .utf8) else {
+                    completion(.failure(.dataError))
+                    return
+                }
+                
+                //Checks to see if a single object or an array of objects.  If single, set to an array after decoding.  If there is a more "Swifty" way to do this, I would love to discuss.
+                if jsonString.prefix(1) == "[" {
+                    let decodedJSON = try jsonDecoder.decode([T].self, from: data)
+                    completion(.success(decodedJSON))
+                } else {
+                    let decodedSingleJSON = try jsonDecoder.decode(T.self, from: data)
+                    completion(.success([decodedSingleJSON]))
+                }
             } catch {
                 print("Decode Error: \(error.localizedDescription)")
                 completion(.failure(.jsonDecodeError))
