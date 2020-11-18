@@ -12,8 +12,7 @@ import Foundation
 
 final class StocksNetworkManager {
     
-    static let shared = StocksNetworkManager()
-    private init() {}
+    init() {}
     
     private var apiKey = FinancialModelingPrep.APIKEY
     

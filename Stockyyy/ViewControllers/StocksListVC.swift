@@ -13,7 +13,7 @@ protocol StocksListVCDelegate: class {
 
 final class StocksListVC: UIViewController {
 
-    lazy var stocksNetworkManager = StocksNetworkManager.shared
+    lazy var stocksNetworkManager = StocksNetworkManager()
     
     weak var delegate: StocksListVCDelegate?
     var datasource: StocksDatasource?
@@ -21,6 +21,7 @@ final class StocksListVC: UIViewController {
     private let tableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.backgroundColor = .systemBackground
+        tv.accessibilityIdentifier = "StocksListVC_Table"
         tv.register(StockCell.self, forCellReuseIdentifier: StockCell.identifier)
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv

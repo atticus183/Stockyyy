@@ -35,7 +35,7 @@ final class CompanyInfoVC: UIViewController {
         didSet { historicalPriceGraphView.historicalPrices = historicalPrices }
     }
     
-    lazy var stocksNetworkManager = StocksNetworkManager.shared
+    lazy var stocksNetworkManager = StocksNetworkManager()
     
     lazy var companytitleView = CompanyDetailTitleView()
     lazy var historicalPriceGraphView = HistoricalPriceGraphView()
