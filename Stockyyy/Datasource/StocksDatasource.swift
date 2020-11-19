@@ -9,9 +9,14 @@ import UIKit
 
 
 final class StocksDatasource: NSObject, UITableViewDataSource {
- 
+    
     private var allCompanies: [CompanyJSON]
     private var filteredCompanies = [CompanyJSON]()
+    
+    //Used for testing
+    var numberOfCompaniesInDatasource: Int {
+        return isSearching ? filteredCompanies.count : allCompanies.count
+    }
     
     private var isSearching = false
     

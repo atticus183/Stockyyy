@@ -17,7 +17,7 @@ final class StockCell: UITableViewCell {
             symbolLbl.text = company.symbol
             companyNameLbl.text = company.name
             exchangeLbl.text = company.exchange
-            currentPriceLbl.text = company.priceFormatted
+            currentPriceLbl.text = company.priceFormattedAsDecimal  //The Symbols List endpoint doesn't provide the currency code.  
         }
     }
     

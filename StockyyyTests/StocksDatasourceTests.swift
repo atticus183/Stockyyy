@@ -28,6 +28,19 @@ class StocksDatasourceTests: XCTestCase {
         sut = nil
     }
     
+    func test_datasource_is_not_nil() {
+        XCTAssertNotNil(sut, "The dataSource is nil.")
+    }
+    
+    func test_datasource_contains_3_companies() {
+        XCTAssert(sut.numberOfCompaniesInDatasource == 3, "The datasource contains the wrong number of companies.")
+    }
+    
+    func test_search_for_apple() {
+        sut.searchForCompany(with: "AAPL")
+        XCTAssert(sut.numberOfCompaniesInDatasource == 1, "There is a duplicate symbol in the datasource.")
+    }
+    
     func test_company_at_indexPath() {
         let desiredIndexPath = IndexPath(row: 1, section: 0)
         

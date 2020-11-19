@@ -42,6 +42,16 @@ extension CompanyJSON {
         return nf
     }
     
+    //The Symbols List endpoint doesn't provide the currency code.  
+    var decimalFormatter: NumberFormatter {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.maximumFractionDigits = 2
+        nf.minimumFractionDigits = 2
+        
+        return nf
+    }
+    
     var dateFormatter: DateFormatter {
         let df = DateFormatter()
         df.dateFormat = "MMMM d yyyy"
@@ -56,15 +66,15 @@ extension CompanyJSON {
         return priceNumberFormatter.string(from: nsNumber)
     }
     
+    var priceFormattedAsDecimal: String? {
+        let nsNumber = NSNumber(value: self.price ?? 0.0)
+        
+        return decimalFormatter.string(from: nsNumber)
+    }
+    
     var changesFormatted: String? {
         let nsNumber = NSNumber(value: self.changes ?? 0.0)
         
         return priceNumberFormatter.string(from: nsNumber)
     }
-    
-//    var ipoDateFormatted: String? {
-//        guard let ipoDate = self.ipoDate else { return "" }
-//
-//        return dateFormatter.string(from: ipoDate)
-//    }
 }
