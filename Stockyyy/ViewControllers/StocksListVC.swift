@@ -18,6 +18,16 @@ final class StocksListVC: UIViewController {
     weak var delegate: StocksListVCDelegate?
     var datasource: StocksDatasource?
     
+    lazy var searchController: UISearchController = {
+        let sc = UISearchController(searchResultsController: nil)
+        sc.searchResultsUpdater = self
+        sc.obscuresBackgroundDuringPresentation = false
+        sc.searchBar.placeholder = "Search"
+        //set to the navigationItem in the setupNavBar method
+        
+        return sc
+    }()
+    
     private let tableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.backgroundColor = .systemBackground
@@ -58,6 +68,7 @@ final class StocksListVC: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+        self.navigationItem.searchController = searchController
     }
     
     private func setupTableView() {
@@ -70,7 +81,7 @@ final class StocksListVC: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
-            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0)
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 2)
         ])
     }
     
@@ -86,7 +97,6 @@ extension StocksListVC: UITableViewDelegate {
                 DispatchQueue.main.async {
                     self?.delegate?.tickerTapped(companyJSON.first!)
                     guard let companyInfoVC = self?.delegate as? CompanyInfoVC else { return }
-                    //        guard let companyInfoVCNavigationController = companyInfoVC.navigationController else { return }
                     self?.splitViewController?.showDetailViewController(companyInfoVC, sender: nil)
                 }
             case .failure(let error):
@@ -100,5 +110,15 @@ extension StocksListVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75.0
+    }
+}
+
+//MARK: Search Delegate
+extension StocksListVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        
+        datasource?.searchForCompany(with: searchText)
+        tableView.reloadData()
     }
 }

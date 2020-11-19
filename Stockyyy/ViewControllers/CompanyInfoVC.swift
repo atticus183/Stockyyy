@@ -16,7 +16,7 @@ final class CompanyInfoVC: UIViewController {
             currentPriceLabel.text = passedCompany.priceFormatted
             priceChangeLabel.text = passedCompany.changesFormatted
             priceChangeLabel.textColor = passedCompany.changes ?? 0.0 < 0 ? .systemRed : .systemGreen
-            companyDescriptionLbl.text = passedCompany.description
+            companyDescriptionLbl.text = passedCompany.description ?? "Company description not available."
             
             stocksNetworkManager.getData(for: CompanyHistoricalPriceJSON.self, from: .historicalPrices(passedCompany.symbol)) { [weak self] (result) in
                 switch result {
