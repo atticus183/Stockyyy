@@ -67,8 +67,21 @@ final class StocksListVC: UIViewController {
         self.title = "Stocks"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
         self.navigationItem.searchController = searchController
+        
+        let titleColor: UIColor = #colorLiteral(red: 0.1290173531, green: 0.5882815123, blue: 0.9528221488, alpha: 1)
+        let navBarColor: UIColor = .systemBackground
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = navBarColor
+        appearance.shadowColor = .none  //removes the nav bar border line
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+        appearance.largeTitleTextAttributes = [.foregroundColor: titleColor]
+        
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance // For iPhone small navigation bar in landscape.
     }
     
     private func setupTableView() {

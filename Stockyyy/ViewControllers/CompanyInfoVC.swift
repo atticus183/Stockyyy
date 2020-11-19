@@ -13,9 +13,9 @@ final class CompanyInfoVC: UIViewController {
         didSet {
             guard let passedCompany = passedCompany else { return }
             companytitleView.company = passedCompany
-            currentPriceLabel.text = passedCompany.priceFormatted
-            priceChangeLabel.text = passedCompany.changesFormatted
-            priceChangeLabel.textColor = passedCompany.changes ?? 0.0 < 0 ? .systemRed : .systemGreen
+            currentPriceLabelView.primaryLbl.text = passedCompany.priceFormatted
+            priceChangeLabelView.primaryLbl.text = passedCompany.changesFormatted
+            priceChangeLabelView.primaryLbl.textColor = passedCompany.changes ?? 0.0 < 0 ? .systemRed : .systemGreen
             companyDescriptionLbl.text = passedCompany.description ?? "Company description not available."
             
             stocksNetworkManager.getData(for: CompanyHistoricalPriceJSON.self, from: .historicalPrices(passedCompany.symbol)) { [weak self] (result) in
@@ -40,30 +40,21 @@ final class CompanyInfoVC: UIViewController {
     lazy var companytitleView = CompanyDetailTitleView()
     lazy var historicalPriceGraphView = HistoricalPriceGraphView()
     
-    lazy var currentPriceLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .systemGreen
-        label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
-        label.sizeToFit()
-        label.textAlignment = .left
-        
-        return label
+    
+    lazy var currentPriceLabelView: LabelViewWithDescription = {
+        let labelView = LabelViewWithDescription()
+        labelView.primaryLbl.textColor = .systemGreen
+        labelView.primaryLbl.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+        labelView.descriptionLbl.text = "Current Price"
+        return labelView
     }()
     
-    lazy var priceChangeLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
-        label.sizeToFit()
-        label.textAlignment = .right
-        
-        return label
-    }()
-    
-    let priceHStackView: UIStackView = {
-       let sv = UIStackView()
-        sv.axis = .horizontal
-        
-        return sv
+    lazy var priceChangeLabelView: LabelViewWithDescription = {
+        let labelView = LabelViewWithDescription()
+        //font color set in passedCompany observer
+        labelView.primaryLbl.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+        labelView.descriptionLbl.text = "Price Change"
+        return labelView
     }()
     
     lazy var companyDescriptionLbl: UITextView = {
@@ -71,6 +62,7 @@ final class CompanyInfoVC: UIViewController {
         textView.textColor = .label
         textView.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         textView.textAlignment = .left
+        textView.isEditable = false
         textView.sizeToFit()
         
         return textView
@@ -83,18 +75,12 @@ final class CompanyInfoVC: UIViewController {
         self.navigationController?.navigationItem.largeTitleDisplayMode = .never
         self.view.backgroundColor = .systemBackground
         
-        addViewsToStackView()
-        addSubviews(views: historicalPriceGraphView, priceHStackView, companyDescriptionLbl)
+        addSubviews(views: historicalPriceGraphView, priceChangeLabelView, currentPriceLabelView ,companyDescriptionLbl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
           
-    }
-    
-    private func addViewsToStackView() {
-        priceHStackView.addArrangedSubview(currentPriceLabel)
-        priceHStackView.addArrangedSubview(priceChangeLabel)
     }
     
     private func addSubviews(views: UIView...) {
@@ -112,14 +98,16 @@ final class CompanyInfoVC: UIViewController {
             historicalPriceGraphView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             historicalPriceGraphView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5),
             historicalPriceGraphView.heightAnchor.constraint(equalToConstant: 200),
+
+            priceChangeLabelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            priceChangeLabelView.topAnchor.constraint(equalTo: self.historicalPriceGraphView.bottomAnchor, constant: 5),
             
-            priceHStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            priceHStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            priceHStackView.topAnchor.constraint(equalTo: self.historicalPriceGraphView.bottomAnchor, constant: 5),
+            currentPriceLabelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            currentPriceLabelView.topAnchor.constraint(equalTo: self.historicalPriceGraphView.bottomAnchor, constant: 5),
             
             companyDescriptionLbl.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             companyDescriptionLbl.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            companyDescriptionLbl.topAnchor.constraint(equalTo: self.priceHStackView.bottomAnchor, constant: 8),
+            companyDescriptionLbl.topAnchor.constraint(equalTo: self.priceChangeLabelView.bottomAnchor, constant: 8),
             companyDescriptionLbl.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -5)
         ])
     }

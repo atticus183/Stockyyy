@@ -26,6 +26,7 @@
 		125E365E25603DD2007F7360 /* CompanyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E365D25603DD2007F7360 /* CompanyJSON.swift */; };
 		1261EF902562FC9200D69222 /* CompanyHistoricalPriceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1261EF8F2562FC9200D69222 /* CompanyHistoricalPriceJSON.swift */; };
 		1261EF962563018800D69222 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 1261EF952563018800D69222 /* Charts */; };
+		12747CA9256624CE008C54FC /* LabelViewWithDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12747CA8256624CE008C54FC /* LabelViewWithDescription.swift */; };
 		127DE86C25624FDC0085EA34 /* HistoricalPriceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127DE86B25624FDC0085EA34 /* HistoricalPriceGraphView.swift */; };
 		129FE88A2564E99C002EE4B4 /* StocksNetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129FE8892564E99C002EE4B4 /* StocksNetworkManagerTests.swift */; };
 		12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */; };
@@ -76,6 +77,7 @@
 		124E341B2561BF5800FB35CE /* CustomActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityView.swift; sourceTree = "<group>"; };
 		125E365D25603DD2007F7360 /* CompanyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyJSON.swift; sourceTree = "<group>"; };
 		1261EF8F2562FC9200D69222 /* CompanyHistoricalPriceJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyHistoricalPriceJSON.swift; sourceTree = "<group>"; };
+		12747CA8256624CE008C54FC /* LabelViewWithDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewWithDescription.swift; sourceTree = "<group>"; };
 		127DE86B25624FDC0085EA34 /* HistoricalPriceGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalPriceGraphView.swift; sourceTree = "<group>"; };
 		129FE8892564E99C002EE4B4 /* StocksNetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksNetworkManagerTests.swift; sourceTree = "<group>"; };
 		12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksNetworkManager.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		1246DACE255FA1B8003FE408 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				12747CA72566242B008C54FC /* Labels */,
 				1246DACF255FA1BF003FE408 /* Cells */,
 				124E341B2561BF5800FB35CE /* CustomActivityView.swift */,
 				1246D60D2561EAE6001066A3 /* CompanyDetailTitleView.swift */,
@@ -242,6 +245,14 @@
 				124E340D2561977B00FB35CE /* Extensions.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		12747CA72566242B008C54FC /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				12747CA8256624CE008C54FC /* LabelViewWithDescription.swift */,
+			);
+			path = Labels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,6 +408,7 @@
 				12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */,
 				1261EF902562FC9200D69222 /* CompanyHistoricalPriceJSON.swift in Sources */,
 				1241442F255F68EF00966F10 /* SceneDelegate.swift in Sources */,
+				12747CA9256624CE008C54FC /* LabelViewWithDescription.swift in Sources */,
 				124E340E2561977B00FB35CE /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
