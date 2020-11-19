@@ -15,7 +15,7 @@ final class HistoricalPriceGraphView: UIView {
     var historicalPrices: CompanyHistoricalPriceJSON? {
         didSet {
             guard let historicalPrices = historicalPrices, let prices = historicalPrices.historical else { return }
-            let numberOfWorkDaysToInclude = 261 * 5
+            let numberOfWorkDaysToInclude = 261 * 5 //261 workdays in a year x 5 years
             let filteredPrices = prices.count > numberOfWorkDaysToInclude ? Array(prices[0..<numberOfWorkDaysToInclude]) : prices
             let chartDataEntries = createDataEntries(priceData: filteredPrices.sorted(by: { $0.date ?? "" < $1.date ?? "" }))
             createDataSet(with: chartDataEntries)
@@ -55,7 +55,7 @@ final class HistoricalPriceGraphView: UIView {
         ])
     }
     
-    //MARK: Step 1 - Create ChartDataEntry items
+    //MARK: Create ChartDataEntry items
     private func createDataEntries(priceData: [CompanyHistoricalPriceJSON.Historical]) -> [ChartDataEntry] {
         var chartDataEntries = [ChartDataEntry]()
         for (index, historicalPrice) in priceData.enumerated() {
@@ -79,7 +79,7 @@ final class HistoricalPriceGraphView: UIView {
         dataSet.fillAlpha = 0.2
         dataSet.fillColor = .systemGreen
         
-        //MARK: Step 4 - Assign the dataSet to a LineChartData instance
+        //MARK: Assign the dataSet to a LineChartData instance
         let data = LineChartData()
         data.addDataSet(dataSet)
         lineChartView.data = data

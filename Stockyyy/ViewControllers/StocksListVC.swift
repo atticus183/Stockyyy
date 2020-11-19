@@ -55,9 +55,10 @@ final class StocksListVC: UIViewController {
                     self?.tableView.dataSource = self?.datasource
                     self?.tableView.reloadData()
                 }
-            case .failure:
+            case .failure(let error):
                 DispatchQueue.main.async {
                     CustomActivityView.stopActivityView()
+                    self?.alert(message: "There was an error retrieving the symbols. \(error.errorDescription)", title: "ERROR")
                 }
             }
         }
@@ -113,9 +114,9 @@ extension StocksListVC: UITableViewDelegate {
                     self?.splitViewController?.showDetailViewController(companyInfoVC, sender: nil)
                 }
             case .failure(let error):
-                print("Error: \(error.errorDescription)")
                 DispatchQueue.main.async {
                     CustomActivityView.stopActivityView()
+                    self?.alert(message: "There was an error retrieving the company profile. \(error.errorDescription)", title: "ERROR")
                 }
             }
         }

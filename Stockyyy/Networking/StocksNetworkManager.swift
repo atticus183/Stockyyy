@@ -14,6 +14,7 @@ final class StocksNetworkManager {
     
     init() {}
     
+    #warning("Please replace FinancialModelingPrep.APIKEY with the key provided in the email.")
     private var apiKey = FinancialModelingPrep.APIKEY
     
     //MARK: Endpoint paths
