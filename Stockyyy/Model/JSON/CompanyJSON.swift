@@ -1,10 +1,3 @@
-//
-//  CompanyJSONModel.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/14/20.
-//
-
 import Foundation
 
 

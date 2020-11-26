@@ -1,10 +1,3 @@
-//
-//  Extensions.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/15/20.
-//
-
 import Foundation
 import UIKit
 

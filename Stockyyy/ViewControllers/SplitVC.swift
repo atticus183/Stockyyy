@@ -1,14 +1,8 @@
-//
-//  SplitVC.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/13/20.
-//
-
 import UIKit
 
-final class SplitVC: UISplitViewController {
 
+final class SplitVC: UISplitViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +17,7 @@ final class SplitVC: UISplitViewController {
         self.setViewController(stocksListVC, for: .primary)
         self.setViewController(companyInfoVC, for: .secondary)
     }
-
+    
 }
 
 extension SplitVC : UISplitViewControllerDelegate {

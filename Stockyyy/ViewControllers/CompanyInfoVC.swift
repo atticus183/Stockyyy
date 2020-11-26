@@ -1,11 +1,5 @@
-//
-//  CompanyInfoVC.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/13/20.
-//
-
 import UIKit
+
 
 final class CompanyInfoVC: UIViewController {
     

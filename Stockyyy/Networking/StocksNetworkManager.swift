@@ -1,10 +1,3 @@
-//
-//  StocksNetworkManager.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/14/20.
-//
-
 //----API DOCUMENTATION----
 //https://financialmodelingprep.com/developer/docs
 
@@ -30,7 +23,7 @@ final class StocksNetworkManager {
             case .companyProfile(let symbol):
                 return "profile/\(symbol)?"
             case .historicalPrices(let symbol):
-                return "historical-price-full/\(symbol)?serietype=line&"
+                return "historical-price-full/\(symbol)?serietype=line&" //serietype is not spelled incorrectly.  Double checked with API doc.
             }
         }
     }

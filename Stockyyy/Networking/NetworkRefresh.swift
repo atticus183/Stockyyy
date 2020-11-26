@@ -1,13 +1,6 @@
-//
-//  NetworkRefresh.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/15/20.
-//
-
 import Foundation
 
-//Note - seperated this from the StocksNetworkManager class to make it easier to test
+//Note - separated this from the StocksNetworkManager class to make it easier to test
 //Note - not using right now 11/15/2020
 struct NetworkRefresh {
     typealias UDKey = String

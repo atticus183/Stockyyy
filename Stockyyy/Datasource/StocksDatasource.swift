@@ -1,10 +1,3 @@
-//
-//  StocksDatasource.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/13/20.
-//
-
 import UIKit
 
 
@@ -13,7 +6,7 @@ final class StocksDatasource: NSObject, UITableViewDataSource {
     private var allCompanies: [CompanyJSON]
     private var filteredCompanies = [CompanyJSON]()
     
-    //Used for testing
+    //Used for unit tests
     var numberOfCompaniesInDatasource: Int {
         return isSearching ? filteredCompanies.count : allCompanies.count
     }
@@ -33,8 +26,8 @@ final class StocksDatasource: NSObject, UITableViewDataSource {
                 let name = company.name ?? ""
                 
                 let isFound = company.symbol.lowercased().contains(searchText.lowercased())
-                                || exchange.lowercased().contains(searchText.lowercased())
-                                || name.lowercased().contains(searchText.lowercased())
+                    || exchange.lowercased().contains(searchText.lowercased())
+                    || name.lowercased().contains(searchText.lowercased())
                 
                 return isFound
             })

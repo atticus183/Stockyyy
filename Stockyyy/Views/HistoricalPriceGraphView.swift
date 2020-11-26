@@ -1,10 +1,3 @@
-//
-//  HistoricalPriceGraphView.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/16/20.
-//
-
 import Charts
 import UIKit
 

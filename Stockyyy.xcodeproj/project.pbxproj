@@ -11,6 +11,8 @@
 		1201FD7A255F71A40097EACD /* SplitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1201FD79255F71A40097EACD /* SplitVC.swift */; };
 		1201FD7F255F72070097EACD /* StocksListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1201FD7E255F72070097EACD /* StocksListVC.swift */; };
 		1201FD84255F72520097EACD /* CompanyInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1201FD83255F72520097EACD /* CompanyInfoVC.swift */; };
+		122489AB2570068200B02D74 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122489AA2570068200B02D74 /* NetworkManager.swift */; };
+		122489B0257006E700B02D74 /* NetworkUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122489AF257006E700B02D74 /* NetworkUnavailableView.swift */; };
 		1241442D255F68EF00966F10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1241442C255F68EF00966F10 /* AppDelegate.swift */; };
 		1241442F255F68EF00966F10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1241442E255F68EF00966F10 /* SceneDelegate.swift */; };
 		12414436255F68EF00966F10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12414435255F68EF00966F10 /* Assets.xcassets */; };
@@ -57,6 +59,8 @@
 		1201FD79255F71A40097EACD /* SplitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitVC.swift; sourceTree = "<group>"; };
 		1201FD7E255F72070097EACD /* StocksListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListVC.swift; sourceTree = "<group>"; };
 		1201FD83255F72520097EACD /* CompanyInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfoVC.swift; sourceTree = "<group>"; };
+		122489AA2570068200B02D74 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		122489AF257006E700B02D74 /* NetworkUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUnavailableView.swift; sourceTree = "<group>"; };
 		12414429255F68EF00966F10 /* Stockyyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stockyyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1241442C255F68EF00966F10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1241442E255F68EF00966F10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 				124E341B2561BF5800FB35CE /* CustomActivityView.swift */,
 				1246D60D2561EAE6001066A3 /* CompanyDetailTitleView.swift */,
 				127DE86B25624FDC0085EA34 /* HistoricalPriceGraphView.swift */,
+				122489AF257006E700B02D74 /* NetworkUnavailableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */,
 				12A63733256085EA00ECDDE1 /* APIKey.swift */,
 				124E34122561998900FB35CE /* NetworkRefresh.swift */,
+				122489AA2570068200B02D74 /* NetworkManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -392,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				122489AB2570068200B02D74 /* NetworkManager.swift in Sources */,
 				1201FD84255F72520097EACD /* CompanyInfoVC.swift in Sources */,
 				1246D60E2561EAE6001066A3 /* CompanyDetailTitleView.swift in Sources */,
 				1201FD7F255F72070097EACD /* StocksListVC.swift in Sources */,
@@ -399,6 +406,7 @@
 				125E365E25603DD2007F7360 /* CompanyJSON.swift in Sources */,
 				12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */,
 				124E34132561998900FB35CE /* NetworkRefresh.swift in Sources */,
+				122489B0257006E700B02D74 /* NetworkUnavailableView.swift in Sources */,
 				124E341C2561BF5800FB35CE /* CustomActivityView.swift in Sources */,
 				1201FD7A255F71A40097EACD /* SplitVC.swift in Sources */,
 				124E34092561971D00FB35CE /* Constants.swift in Sources */,

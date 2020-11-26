@@ -1,22 +1,18 @@
-//
-//  StocksListVC.swift
-//  Stockyyy
-//
-//  Created by Josh R on 11/13/20.
-//
-
 import UIKit
 
 protocol StocksListVCDelegate: class {
     func tickerTapped(_ company: CompanyJSON)
 }
 
-final class StocksListVC: UIViewController {
 
-    lazy var stocksNetworkManager = StocksNetworkManager()
+final class StocksListVC: UIViewController {
+    
+    private let networkManager = NetworkMonitor.shared
+    
+    private lazy var stocksNetworkManager = StocksNetworkManager()
     
     weak var delegate: StocksListVCDelegate?
-    var datasource: StocksDatasource?
+    private var datasource: StocksDatasource?
     
     lazy var searchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
@@ -36,32 +32,37 @@ final class StocksListVC: UIViewController {
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
-
+    
+    private lazy var networkUnavailableView = NetworkUnavailableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //Start monitoring the devices network status
+        networkManager.startMonitor()
+        
         self.view.backgroundColor = .systemBackground
         
         setupNavBar()
         setupTableView()
+        getStocks()
         
-        CustomActivityView.startActivityView()
-        stocksNetworkManager.getData(for: CompanyJSON.self, from: .stockList) { [weak self] (result) in
-            switch result {
-            case .success(let companyJSON):
-                DispatchQueue.main.async {
-                    CustomActivityView.stopActivityView()
-                    self?.datasource = StocksDatasource(companies: companyJSON)
-                    self?.tableView.dataSource = self?.datasource
-                    self?.tableView.reloadData()
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    CustomActivityView.stopActivityView()
-                    self?.alert(message: "There was an error retrieving the symbols. \(error.errorDescription)", title: "ERROR")
-                }
+        networkManager.connectionDidChange = { [weak self] isConnected in
+            guard let strongSelf = self else { return }
+            
+            if isConnected {
+                strongSelf.getStocks()
+            }
+            
+            //The NetworkManager runs on a custom queue.  Must push UI updates back to the main thread.
+            DispatchQueue.main.async {
+                strongSelf.navigationItem.titleView = strongSelf.networkManager.isConnected ? nil : strongSelf.networkUnavailableView
             }
         }
+    }
+    
+    deinit {
+        networkManager.stopMonitoring()
     }
     
     private func setupNavBar() {
@@ -69,6 +70,7 @@ final class StocksListVC: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.searchController = searchController
+        self.navigationItem.titleView = networkManager.isConnected ? nil : networkUnavailableView
         
         let titleColor: UIColor = #colorLiteral(red: 0.1290173531, green: 0.5882815123, blue: 0.9528221488, alpha: 1)
         let navBarColor: UIColor = .systemBackground
@@ -97,6 +99,29 @@ final class StocksListVC: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 2)
         ])
+    }
+    
+    private func getStocks() {
+        //Push startActivityView method to main thread because this method is called within the networkManager closure on a custom queue.
+        if networkManager.isConnected {
+            DispatchQueue.main.async { CustomActivityView.startActivityView() }
+            stocksNetworkManager.getData(for: CompanyJSON.self, from: .stockList) { [weak self] (result) in
+                switch result {
+                case .success(let companyJSON):
+                    DispatchQueue.main.async {
+                        CustomActivityView.stopActivityView()
+                        self?.datasource = StocksDatasource(companies: companyJSON)
+                        self?.tableView.dataSource = self?.datasource
+                        self?.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        CustomActivityView.stopActivityView()
+                        self?.alert(message: "There was an error retrieving the symbols. \(error.errorDescription)", title: "ERROR")
+                    }
+                }
+            }
+        }
     }
     
 }
