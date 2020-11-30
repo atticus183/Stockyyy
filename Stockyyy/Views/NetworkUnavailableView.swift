@@ -60,8 +60,8 @@ final class NetworkUnavailableView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             iconImgView.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
             iconImgView.widthAnchor.constraint(greaterThanOrEqualToConstant: 30)

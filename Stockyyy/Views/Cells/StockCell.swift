@@ -83,7 +83,7 @@ final class StockCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.contentView.backgroundColor = .systemGray6
+        contentView.backgroundColor = .systemGray6
         
         addSubViews(views: companyInfoVSV, currentPriceLbl)
     }
@@ -103,20 +103,20 @@ final class StockCell: UITableViewCell {
         addViewsToStackView()
         views.forEach({ self.contentView.addSubview($0) })
         views.forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
-        setViewConstaints()
+        setViewConstraints()
     }
     
-    private func setViewConstaints() {
+    private func setViewConstraints() {
         //Note - translatesAutoresizingMaskIntoConstraints set to false in addSubViews method
         NSLayoutConstraint.activate([
-            companyInfoVSV.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8),
-            companyInfoVSV.trailingAnchor.constraint(equalTo: self.currentPriceLbl.leadingAnchor, constant: -2),
-            companyInfoVSV.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -3),
-            companyInfoVSV.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 3),
+            companyInfoVSV.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            companyInfoVSV.trailingAnchor.constraint(equalTo: currentPriceLbl.leadingAnchor, constant: -2),
+            companyInfoVSV.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
+            companyInfoVSV.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3),
             
-            currentPriceLbl.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
+            currentPriceLbl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             currentPriceLbl.widthAnchor.constraint(lessThanOrEqualToConstant: 175),
-            currentPriceLbl.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
+            currentPriceLbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
     

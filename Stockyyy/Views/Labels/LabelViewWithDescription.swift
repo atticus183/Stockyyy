@@ -57,10 +57,10 @@ class LabelViewWithDescription: UIView {
         lblStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            lblStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            lblStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-            lblStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            lblStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0)
+            lblStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            lblStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            lblStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            lblStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0)
         ])
     }
 }

@@ -7,6 +7,7 @@ protocol StocksListVCDelegate: class {
 
 final class StocksListVC: UIViewController {
     
+    //This class monitors the devices network connection
     private let networkManager = NetworkMonitor.shared
     
     private lazy var stocksNetworkManager = StocksNetworkManager()
@@ -14,7 +15,7 @@ final class StocksListVC: UIViewController {
     weak var delegate: StocksListVCDelegate?
     private var datasource: StocksDatasource?
     
-    lazy var searchController: UISearchController = {
+    private lazy var searchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
         sc.searchResultsUpdater = self
         sc.obscuresBackgroundDuringPresentation = false
@@ -41,7 +42,7 @@ final class StocksListVC: UIViewController {
         //Start monitoring the devices network status
         networkManager.startMonitor()
         
-        self.view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
         
         setupNavBar()
         setupTableView()
@@ -66,11 +67,11 @@ final class StocksListVC: UIViewController {
     }
     
     private func setupNavBar() {
-        self.title = "Stocks"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
-        self.navigationItem.searchController = searchController
-        self.navigationItem.titleView = networkManager.isConnected ? nil : networkUnavailableView
+        title = "Stocks"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationItem.searchController = searchController
+        navigationItem.titleView = networkManager.isConnected ? nil : networkUnavailableView
         
         let titleColor: UIColor = #colorLiteral(red: 0.1290173531, green: 0.5882815123, blue: 0.9528221488, alpha: 1)
         let navBarColor: UIColor = .systemBackground

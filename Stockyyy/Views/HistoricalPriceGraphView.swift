@@ -32,19 +32,15 @@ final class HistoricalPriceGraphView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
     private func addChartToView() {
         self.addSubview(lineChartView)
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            lineChartView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            lineChartView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-            lineChartView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
-            lineChartView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0)
+            lineChartView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            lineChartView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            lineChartView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            lineChartView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
         ])
     }
     

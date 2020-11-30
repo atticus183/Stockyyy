@@ -25,14 +25,14 @@ final class CompanyInfoVC: UIViewController {
         }
     }
     
-    var historicalPrices: CompanyHistoricalPriceJSON? {
+    private var historicalPrices: CompanyHistoricalPriceJSON? {
         didSet { historicalPriceGraphView.historicalPrices = historicalPrices }
     }
     
-    lazy var stocksNetworkManager = StocksNetworkManager()
+    private lazy var stocksNetworkManager = StocksNetworkManager()
     
-    lazy var companytitleView = CompanyDetailTitleView()
-    lazy var historicalPriceGraphView = HistoricalPriceGraphView()
+    private lazy var companytitleView = CompanyDetailTitleView()
+    private lazy var historicalPriceGraphView = HistoricalPriceGraphView()
     
     
     lazy var currentPriceLabelView: LabelViewWithDescription = {
@@ -43,7 +43,7 @@ final class CompanyInfoVC: UIViewController {
         return labelView
     }()
     
-    lazy var priceChangeLabelView: LabelViewWithDescription = {
+    private lazy var priceChangeLabelView: LabelViewWithDescription = {
         let labelView = LabelViewWithDescription()
         //font color set in passedCompany observer
         labelView.primaryLbl.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
@@ -51,7 +51,7 @@ final class CompanyInfoVC: UIViewController {
         return labelView
     }()
     
-    lazy var companyDescriptionLbl: UITextView = {
+    private lazy var companyDescriptionLbl: UITextView = {
         let textView = UITextView()
         textView.textColor = .label
         textView.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -65,9 +65,9 @@ final class CompanyInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.titleView = companytitleView
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
-        self.view.backgroundColor = .systemBackground
+        navigationItem.titleView = companytitleView
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
+        view.backgroundColor = .systemBackground
         
         addSubviews(views: historicalPriceGraphView, priceChangeLabelView, currentPriceLabelView ,companyDescriptionLbl)
     }
