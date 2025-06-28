@@ -9,6 +9,8 @@ import UIKit
 
 final class StockCell: UITableViewCell {
 
+    // MARK: - Properties
+
     static let identifier = "StockCell"
 
     var company: CompanyJSON? {
@@ -21,9 +23,6 @@ final class StockCell: UITableViewCell {
         }
     }
 
-    // MARK: Labels
-
-    // Symbol lbl
     lazy var symbolLbl: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -35,7 +34,6 @@ final class StockCell: UITableViewCell {
         return label
     }()
 
-    // Full company name lbl
     lazy var companyNameLbl: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
@@ -46,7 +44,6 @@ final class StockCell: UITableViewCell {
         return label
     }()
 
-    // Exchange lbl
     lazy var exchangeLbl: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -70,8 +67,6 @@ final class StockCell: UITableViewCell {
         return label
     }()
 
-    // MARK: Stack Views
-
     // SV for symbol, company name, and exchange
     let companyInfoVSV: UIStackView = {
         let stackView = UIStackView()
@@ -81,6 +76,8 @@ final class StockCell: UITableViewCell {
 
         return stackView
     }()
+
+    // MARK: - Initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -94,6 +91,8 @@ final class StockCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
         // NOTE: Setup not needed.  Not using SB.
     }
+
+    // MARK: - Methods
 
     private func addViewsToStackView() {
         companyInfoVSV.addArrangedSubview(symbolLbl)
@@ -109,7 +108,6 @@ final class StockCell: UITableViewCell {
     }
 
     private func setViewConstraints() {
-        // Note - translatesAutoresizingMaskIntoConstraints set to false in addSubViews method
         NSLayoutConstraint.activate([
             companyInfoVSV.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             companyInfoVSV.trailingAnchor.constraint(equalTo: currentPriceLbl.leadingAnchor, constant: -2),

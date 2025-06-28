@@ -2,6 +2,8 @@ import UIKit
 
 final class NetworkUnavailableView: UIView {
 
+    // MARK: - Properties
+
     lazy var iconImgView: UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
@@ -35,22 +37,26 @@ final class NetworkUnavailableView: UIView {
         return sv
     }()
 
+    // MARK: - Initialization
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
 
-    // NOTE: Not using SBs
     required init?(coder: NSCoder) {
         fatalError("Using storyboards.  Please add setupView method.")
     }
+
+    // MARK: - Methods
 
     private func setupView() {
         self.backgroundColor = .clear
 
         stackView.addArrangedSubview(iconImgView)
         stackView.addArrangedSubview(messageLbl)
-        self.addSubview(stackView)
+
+        addSubview(stackView)
 
         setupConstraints()
     }

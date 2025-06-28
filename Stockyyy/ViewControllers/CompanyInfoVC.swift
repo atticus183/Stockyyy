@@ -2,6 +2,8 @@ import UIKit
 
 final class CompanyInfoVC: UIViewController {
 
+    // MARK: - Properties
+
     var passedCompany: CompanyJSON? {
         didSet {
             guard let passedCompany else { return }
@@ -60,6 +62,8 @@ final class CompanyInfoVC: UIViewController {
         return textView
     }()
 
+    // MARK: - View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,6 +77,8 @@ final class CompanyInfoVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+
+    // MARK: - Methods
 
     private func addSubviews(views: UIView...) {
         views.forEach {
@@ -103,6 +109,8 @@ final class CompanyInfoVC: UIViewController {
         ])
     }
 }
+
+// MARK: - StocksListVCDelegate
 
 extension CompanyInfoVC: StocksListVCDelegate {
     func tickerTapped(_ company: CompanyJSON) {

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class LabelViewWithDescription: UIView {
+final class LabelViewWithDescription: UIView {
+
+    // MARK: - Properties
 
     lazy var primaryLbl: UILabel = {
         let label = UILabel()
@@ -37,6 +39,8 @@ class LabelViewWithDescription: UIView {
         return sv
     }()
 
+    // MARK: - Initialization
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -48,11 +52,13 @@ class LabelViewWithDescription: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Methods
+
     private func setupViews() {
         lblStackView.addArrangedSubview(primaryLbl)
         lblStackView.addArrangedSubview(descriptionLbl)
 
-        self.addSubview(lblStackView)
+        addSubview(lblStackView)
 
         lblStackView.translatesAutoresizingMaskIntoConstraints = false
 

@@ -8,11 +8,11 @@
 import Foundation
 
 struct CompanyHistoricalPriceJSON: Codable {
-    var symbol: String
-    var historical: [Historical]?
+    let symbol: String
+    let historical: [Historical]?
 
     struct Historical: Codable {
-        var date: String?
-        var close: Double?
+        let date: String?
+        let close: Double?
     }
 }

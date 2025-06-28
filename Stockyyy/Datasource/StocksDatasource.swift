@@ -1,23 +1,32 @@
 import UIKit
 
-final class StocksDatasource: NSObject, UITableViewDataSource {
+final class StocksDatasource: NSObject {
+
+    // MARK: - Properties
 
     private var allCompanies: [CompanyJSON]
     private var filteredCompanies = [CompanyJSON]()
 
-    // Used for unit tests
     var numberOfCompaniesInDatasource: Int {
-        return isSearching ? filteredCompanies.count : allCompanies.count
+        isSearching ? filteredCompanies.count : allCompanies.count
     }
 
     private var isSearching = false
 
+    // MARK: - Initialization
+
+    init(companies: [CompanyJSON]) {
+        self.allCompanies = companies.sorted(by: { $0.symbol < $1.symbol })
+    }
+
+    // MARK: - Methods
+
     func company(at indexPath: IndexPath) -> CompanyJSON? {
-        return isSearching ? filteredCompanies[indexPath.row] : allCompanies[indexPath.row]
+        isSearching ? filteredCompanies[indexPath.row] : allCompanies[indexPath.row]
     }
 
     func searchForCompany(with searchText: String) {
-        isSearching = searchText == "" ? false : true
+        isSearching = searchText.isEmpty ? false : true
 
         if isSearching {
             filteredCompanies = allCompanies.filter { company -> Bool in
@@ -34,13 +43,14 @@ final class StocksDatasource: NSObject, UITableViewDataSource {
             filteredCompanies.removeAll()
         }
     }
+}
 
-    init(companies: [CompanyJSON]) {
-        self.allCompanies = companies.sorted(by: { $0.symbol < $1.symbol })
-    }
+// MARK: - UITableViewDataSource
+
+extension StocksDatasource: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearching ? filteredCompanies.count : allCompanies.count
+        numberOfCompaniesInDatasource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -3,6 +3,8 @@ import UIKit
 
 final class HistoricalPriceGraphView: UIView {
 
+    // MARK: - Properties
+
     lazy var lineChartView = LineChartView()
 
     var historicalPrices: CompanyHistoricalPriceJSON? {
@@ -16,6 +18,8 @@ final class HistoricalPriceGraphView: UIView {
             animateChart()
         }
     }
+
+    // MARK: - Initialization
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +35,8 @@ final class HistoricalPriceGraphView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Methods
+
     private func addChartToView() {
         self.addSubview(lineChartView)
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,8 +48,6 @@ final class HistoricalPriceGraphView: UIView {
             lineChartView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
         ])
     }
-
-    // MARK: Create ChartDataEntry items
 
     private func createDataEntries(priceData: [CompanyHistoricalPriceJSON.Historical]) -> [ChartDataEntry] {
         var chartDataEntries = [ChartDataEntry]()
@@ -94,5 +98,7 @@ final class HistoricalPriceGraphView: UIView {
         lineChartView.animate(xAxisDuration: 1)
     }
 }
+
+// MARK: - ChartViewDelegate
 
 extension HistoricalPriceGraphView: ChartViewDelegate {}

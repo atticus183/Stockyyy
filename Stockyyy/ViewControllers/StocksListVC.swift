@@ -6,6 +6,8 @@ protocol StocksListVCDelegate: AnyObject {
 
 final class StocksListVC: UIViewController {
 
+    // MARK: - Properties
+
     // This class monitors the devices network connection
     private let networkManager = NetworkMonitor.shared
 
@@ -19,7 +21,6 @@ final class StocksListVC: UIViewController {
         sc.searchResultsUpdater = self
         sc.obscuresBackgroundDuringPresentation = false
         sc.searchBar.placeholder = "Search"
-        // set to the navigationItem in the setupNavBar method
 
         return sc
     }()
@@ -30,10 +31,13 @@ final class StocksListVC: UIViewController {
         tv.accessibilityIdentifier = "StocksListVC_Table"
         tv.register(StockCell.self, forCellReuseIdentifier: StockCell.identifier)
         tv.translatesAutoresizingMaskIntoConstraints = false
+
         return tv
     }()
 
     private lazy var networkUnavailableView = NetworkUnavailableView()
+
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +68,8 @@ final class StocksListVC: UIViewController {
     deinit {
         networkManager.stopMonitoring()
     }
+
+    // MARK: - Methods
 
     private func setupNavBar() {
         title = "Stocks"
@@ -126,6 +132,8 @@ final class StocksListVC: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension StocksListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tappedCompany = datasource?.company(at: indexPath) else { return }
@@ -148,11 +156,11 @@ extension StocksListVC: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75.0
+        75.0
     }
 }
 
-// MARK: Search Delegate
+// MARK: - UISearchResultsUpdating
 
 extension StocksListVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {

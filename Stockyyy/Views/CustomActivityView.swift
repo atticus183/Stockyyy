@@ -1,6 +1,6 @@
 import UIKit
 
-class CustomActivityView: UIAlertController {
+final class CustomActivityView: UIAlertController {
 
     static func createAlert() -> CustomActivityView {
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))

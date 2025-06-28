@@ -64,7 +64,6 @@ final class StocksNetworkManager {
                     return
                 }
 
-                // Checks to see if a single object or an array of objects.  If single, set to an array after decoding.  If there is a more "Swifty" way to do this, I would love to discuss.
                 if jsonString.prefix(1) == "[" {
                     let decodedJSON = try jsonDecoder.decode([T].self, from: data)
                     completion(.success(decodedJSON))
