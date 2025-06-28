@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,15 +27,15 @@
 		124E341C2561BF5800FB35CE /* CustomActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E341B2561BF5800FB35CE /* CustomActivityView.swift */; };
 		125E365E25603DD2007F7360 /* CompanyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E365D25603DD2007F7360 /* CompanyJSON.swift */; };
 		1261EF902562FC9200D69222 /* CompanyHistoricalPriceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1261EF8F2562FC9200D69222 /* CompanyHistoricalPriceJSON.swift */; };
-		1261EF962563018800D69222 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 1261EF952563018800D69222 /* Charts */; };
 		12747CA9256624CE008C54FC /* LabelViewWithDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12747CA8256624CE008C54FC /* LabelViewWithDescription.swift */; };
 		127DE86C25624FDC0085EA34 /* HistoricalPriceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127DE86B25624FDC0085EA34 /* HistoricalPriceGraphView.swift */; };
 		129FE88A2564E99C002EE4B4 /* StocksNetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129FE8892564E99C002EE4B4 /* StocksNetworkManagerTests.swift */; };
 		12A6372F256082BD00ECDDE1 /* StocksNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */; };
-		12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A63733256085EA00ECDDE1 /* APIKey.swift */; };
 		12B437602564BB860048ED64 /* CompanyJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B4375F2564BB860048ED64 /* CompanyJSONTests.swift */; };
 		12B437682564C0230048ED64 /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B437672564C0230048ED64 /* ExtensionTests.swift */; };
 		12B437702564C3BB0048ED64 /* StocksDatasourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B4376F2564C3BB0048ED64 /* StocksDatasourceTests.swift */; };
+		574E75FA2E103C030073ECBD /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 574E75F92E103C030073ECBD /* DGCharts */; };
+		574E75FC2E103D3C0073ECBD /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574E75FB2E103D3C0073ECBD /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,10 +85,10 @@
 		127DE86B25624FDC0085EA34 /* HistoricalPriceGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalPriceGraphView.swift; sourceTree = "<group>"; };
 		129FE8892564E99C002EE4B4 /* StocksNetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksNetworkManagerTests.swift; sourceTree = "<group>"; };
 		12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksNetworkManager.swift; sourceTree = "<group>"; };
-		12A63733256085EA00ECDDE1 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		12B4375F2564BB860048ED64 /* CompanyJSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyJSONTests.swift; sourceTree = "<group>"; };
 		12B437672564C0230048ED64 /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		12B4376F2564C3BB0048ED64 /* StocksDatasourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDatasourceTests.swift; sourceTree = "<group>"; };
+		574E75FB2E103D3C0073ECBD /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +96,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				574E75FA2E103C030073ECBD /* DGCharts in Frameworks */,
 				1201FD70255F6F330097EACD /* Kingfisher in Frameworks */,
-				1261EF962563018800D69222 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,9 +229,9 @@
 			isa = PBXGroup;
 			children = (
 				12A6372E256082BD00ECDDE1 /* StocksNetworkManager.swift */,
-				12A63733256085EA00ECDDE1 /* APIKey.swift */,
 				124E34122561998900FB35CE /* NetworkRefresh.swift */,
 				122489AA2570068200B02D74 /* NetworkManager.swift */,
+				574E75FB2E103D3C0073ECBD /* APIKey.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -279,7 +279,7 @@
 			name = Stockyyy;
 			packageProductDependencies = (
 				1201FD6F255F6F330097EACD /* Kingfisher */,
-				1261EF952563018800D69222 /* Charts */,
+				574E75F92E103C030073ECBD /* DGCharts */,
 			);
 			productName = Stockyyy;
 			productReference = 12414429255F68EF00966F10 /* Stockyyy.app */;
@@ -327,8 +327,9 @@
 		12414421255F68EF00966F10 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					12414428255F68EF00966F10 = {
 						CreatedOnToolsVersion = 12.1;
@@ -354,7 +355,7 @@
 			mainGroup = 12414420255F68EF00966F10;
 			packageReferences = (
 				1201FD6E255F6F330097EACD /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				1261EF942563018800D69222 /* XCRemoteSwiftPackageReference "Charts" */,
+				574E75F82E103C030073ECBD /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 1241442A255F68EF00966F10 /* Products */;
 			projectDirPath = "";
@@ -412,8 +413,8 @@
 				124E34092561971D00FB35CE /* Constants.swift in Sources */,
 				1241442D255F68EF00966F10 /* AppDelegate.swift in Sources */,
 				127DE86C25624FDC0085EA34 /* HistoricalPriceGraphView.swift in Sources */,
+				574E75FC2E103D3C0073ECBD /* APIKey.swift in Sources */,
 				1246DAED255FA4EC003FE408 /* StocksDatasource.swift in Sources */,
-				12A63734256085EA00ECDDE1 /* APIKey.swift in Sources */,
 				1261EF902562FC9200D69222 /* CompanyHistoricalPriceJSON.swift in Sources */,
 				1241442F255F68EF00966F10 /* SceneDelegate.swift in Sources */,
 				12747CA9256624CE008C54FC /* LabelViewWithDescription.swift in Sources */,
@@ -502,8 +503,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C66Y3DM74C;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -563,8 +566,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C66Y3DM74C;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -589,7 +594,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C66Y3DM74C;
 				INFOPLIST_FILE = Stockyyy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -608,7 +612,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C66Y3DM74C;
 				INFOPLIST_FILE = Stockyyy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -624,10 +627,8 @@
 		12414457255F68F000966F10 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C66Y3DM74C;
 				INFOPLIST_FILE = StockyyyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -646,10 +647,8 @@
 		12414458255F68F000966F10 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C66Y3DM74C;
 				INFOPLIST_FILE = StockyyyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -668,9 +667,7 @@
 		1241445A255F68F000966F10 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C66Y3DM74C;
 				INFOPLIST_FILE = StockyyyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -688,9 +685,7 @@
 		1241445B255F68F000966F10 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C66Y3DM74C;
 				INFOPLIST_FILE = StockyyyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -751,16 +746,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.15.7;
+				kind = exactVersion;
+				version = 5.15.7;
 			};
 		};
-		1261EF942563018800D69222 /* XCRemoteSwiftPackageReference "Charts" */ = {
+		574E75F82E103C030073ECBD /* XCRemoteSwiftPackageReference "Charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			repositoryURL = "https://github.com/ChartsOrg/Charts.git";
 			requirement = {
-				kind = exactVersion;
-				version = 3.6.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -771,10 +766,10 @@
 			package = 1201FD6E255F6F330097EACD /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		1261EF952563018800D69222 /* Charts */ = {
+		574E75F92E103C030073ECBD /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1261EF942563018800D69222 /* XCRemoteSwiftPackageReference "Charts" */;
-			productName = Charts;
+			package = 574E75F82E103C030073ECBD /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

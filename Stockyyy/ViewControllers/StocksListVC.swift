@@ -1,9 +1,8 @@
 import UIKit
 
-protocol StocksListVCDelegate: class {
+protocol StocksListVCDelegate: AnyObject {
     func tickerTapped(_ company: CompanyJSON)
 }
-
 
 final class StocksListVC: UIViewController {
     

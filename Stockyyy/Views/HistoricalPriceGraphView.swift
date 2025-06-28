@@ -1,4 +1,4 @@
-import Charts
+import DGCharts
 import UIKit
 
 final class HistoricalPriceGraphView: UIView {
@@ -26,8 +26,7 @@ final class HistoricalPriceGraphView: UIView {
         addChartToView()
         customizeChartView()
     }
-    
-    //Not using SB
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -56,8 +55,8 @@ final class HistoricalPriceGraphView: UIView {
     }
     
     private func createDataSet(with chartDataEntries: [ChartDataEntry]) {
-        let dataSet = LineChartDataSet(entries: chartDataEntries, label: nil)
-        dataSet.circleRadius = 0    //managers the data point circles
+        let dataSet = LineChartDataSet(entries: chartDataEntries, label: "label")
+        dataSet.circleRadius = 0    //manages the data point circles
         dataSet.colors = [.systemGreen]
         dataSet.lineWidth = 2
         dataSet.drawValuesEnabled = false   //turns off data point labels
@@ -67,10 +66,9 @@ final class HistoricalPriceGraphView: UIView {
         dataSet.drawFilledEnabled = true    //Turn on and off fill
         dataSet.fillAlpha = 0.2
         dataSet.fillColor = .systemGreen
-        
-        //MARK: Assign the dataSet to a LineChartData instance
+
         let data = LineChartData()
-        data.addDataSet(dataSet)
+        data.append(dataSet)
         lineChartView.data = data
     }
     
@@ -80,7 +78,6 @@ final class HistoricalPriceGraphView: UIView {
         lineChartView.xAxis.gridColor = .systemGray
         
         lineChartView.borderLineWidth = 0.5  //use values < 1
-        lineChartView.chartDescription?.text = ""
         lineChartView.rightAxis.enabled = false
         lineChartView.xAxis.labelPosition = .bottom
         lineChartView.xAxis.drawLabelsEnabled = false   //turns off xAxis labels
