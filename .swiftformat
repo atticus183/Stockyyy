@@ -1,0 +1,27 @@
+--swiftversion 5.9
+
+--rules \
+     blankLinesAroundMark, \
+     blankLinesAtEndOfScope, \
+     blankLinesBetweenImports, \
+     blankLinesBetweenScopes, \
+     consecutiveBlankLines, \
+     consecutiveSpaces, \
+     duplicateImports, \
+     redundantBreak, \
+     redundantClosure, \
+     redundantNilInit, \
+     redundantOptionalBinding, \
+     redundantParens, \
+     sortedImports, \
+     sortSwitchCases, \
+     spaceAroundBraces, \
+     spaceAroundComments, \
+     spaceAroundOperators, \
+     spaceAroundParens, \
+     spaceInsideBraces, \
+     spaceInsideComments, \
+     spaceInsideParens, \
+     trailingClosures, \
+     trailingSpace, \
+     typeSugar
