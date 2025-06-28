@@ -8,21 +8,22 @@
 import UIKit
 
 final class StockCell: UITableViewCell {
-    
+
     static let identifier = "StockCell"
-    
+
     var company: CompanyJSON? {
         didSet {
-            guard let company = company else { return }
+            guard let company else { return }
             symbolLbl.text = company.symbol
             companyNameLbl.text = company.name
             exchangeLbl.text = company.exchange
-            currentPriceLbl.text = company.priceFormattedAsDecimal  //The Symbols List endpoint doesn't provide the currency code.  
+            currentPriceLbl.text = company.priceFormattedAsDecimal // The Symbols List endpoint doesn't provide the currency code.
         }
     }
-    
-    //MARK: Labels
-    //Symbol lbl
+
+    // MARK: Labels
+
+    // Symbol lbl
     lazy var symbolLbl: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -30,22 +31,22 @@ final class StockCell: UITableViewCell {
         label.numberOfLines = 1
         label.textAlignment = .left
         label.sizeToFit()
-        
+
         return label
     }()
-    
-    //Full company name lbl
+
+    // Full company name lbl
     lazy var companyNameLbl: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = .label
         label.numberOfLines = 1
         label.sizeToFit()
-        
+
         return label
     }()
-    
-    //Exchange lbl
+
+    // Exchange lbl
     lazy var exchangeLbl: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -54,10 +55,10 @@ final class StockCell: UITableViewCell {
         label.minimumScaleFactor = 0.8
         label.textAlignment = .left
         label.sizeToFit()
-        
+
         return label
     }()
-    
+
     lazy var currentPriceLbl: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -65,59 +66,59 @@ final class StockCell: UITableViewCell {
         label.numberOfLines = 1
         label.textAlignment = .left
         label.sizeToFit()
-        
+
         return label
     }()
-    
-    //MARK: Stack Views
-    //SV for symbol, company name, and exchange
+
+    // MARK: Stack Views
+
+    // SV for symbol, company name, and exchange
     let companyInfoVSV: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .leading
-        
+
         return stackView
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         contentView.backgroundColor = .systemGray6
-        
+
         addSubViews(views: companyInfoVSV, currentPriceLbl)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        //NOTE: Setup not needed.  Not using SB.
+        // NOTE: Setup not needed.  Not using SB.
     }
-    
+
     private func addViewsToStackView() {
         companyInfoVSV.addArrangedSubview(symbolLbl)
         companyInfoVSV.addArrangedSubview(companyNameLbl)
         companyInfoVSV.addArrangedSubview(exchangeLbl)
     }
-    
+
     private func addSubViews(views: UIView...) {
         addViewsToStackView()
-        views.forEach({ self.contentView.addSubview($0) })
-        views.forEach({ $0.translatesAutoresizingMaskIntoConstraints = false })
+        views.forEach { self.contentView.addSubview($0) }
+        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         setViewConstraints()
     }
-    
+
     private func setViewConstraints() {
-        //Note - translatesAutoresizingMaskIntoConstraints set to false in addSubViews method
+        // Note - translatesAutoresizingMaskIntoConstraints set to false in addSubViews method
         NSLayoutConstraint.activate([
             companyInfoVSV.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             companyInfoVSV.trailingAnchor.constraint(equalTo: currentPriceLbl.leadingAnchor, constant: -2),
             companyInfoVSV.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
             companyInfoVSV.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3),
-            
+
             currentPriceLbl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             currentPriceLbl.widthAnchor.constraint(lessThanOrEqualToConstant: 175),
             currentPriceLbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
-    
 }

@@ -1,18 +1,17 @@
 import UIKit
 
-
 final class CompanyInfoVC: UIViewController {
-    
+
     var passedCompany: CompanyJSON? {
         didSet {
-            guard let passedCompany = passedCompany else { return }
+            guard let passedCompany else { return }
             companytitleView.company = passedCompany
             currentPriceLabelView.primaryLbl.text = passedCompany.priceFormatted
             priceChangeLabelView.primaryLbl.text = passedCompany.changesFormatted
             priceChangeLabelView.primaryLbl.textColor = passedCompany.changes ?? 0.0 < 0 ? .systemRed : .systemGreen
             companyDescriptionLbl.text = passedCompany.description ?? "Company description not available."
-            
-            stocksNetworkManager.getData(for: CompanyHistoricalPriceJSON.self, from: .historicalPrices(passedCompany.symbol)) { [weak self] (result) in
+
+            stocksNetworkManager.getData(for: CompanyHistoricalPriceJSON.self, from: .historicalPrices(passedCompany.symbol)) { [weak self] result in
                 switch result {
                 case .success(let prices):
                     DispatchQueue.main.async {
@@ -24,17 +23,16 @@ final class CompanyInfoVC: UIViewController {
             }
         }
     }
-    
+
     private var historicalPrices: CompanyHistoricalPriceJSON? {
         didSet { historicalPriceGraphView.historicalPrices = historicalPrices }
     }
-    
+
     private lazy var stocksNetworkManager = StocksNetworkManager()
-    
+
     private lazy var companytitleView = CompanyDetailTitleView()
     private lazy var historicalPriceGraphView = HistoricalPriceGraphView()
-    
-    
+
     lazy var currentPriceLabelView: LabelViewWithDescription = {
         let labelView = LabelViewWithDescription()
         labelView.primaryLbl.textColor = .systemGreen
@@ -42,15 +40,15 @@ final class CompanyInfoVC: UIViewController {
         labelView.descriptionLbl.text = "Current Price"
         return labelView
     }()
-    
+
     private lazy var priceChangeLabelView: LabelViewWithDescription = {
         let labelView = LabelViewWithDescription()
-        //font color set in passedCompany observer
+        // font color set in passedCompany observer
         labelView.primaryLbl.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         labelView.descriptionLbl.text = "Price Change"
         return labelView
     }()
-    
+
     private lazy var companyDescriptionLbl: UITextView = {
         let textView = UITextView()
         textView.textColor = .label
@@ -58,34 +56,33 @@ final class CompanyInfoVC: UIViewController {
         textView.textAlignment = .left
         textView.isEditable = false
         textView.sizeToFit()
-        
+
         return textView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationItem.titleView = companytitleView
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .systemBackground
-        
-        addSubviews(views: historicalPriceGraphView, priceChangeLabelView, currentPriceLabelView ,companyDescriptionLbl)
+
+        addSubviews(views: historicalPriceGraphView, priceChangeLabelView, currentPriceLabelView, companyDescriptionLbl)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-          
     }
-    
+
     private func addSubviews(views: UIView...) {
-        views.forEach({
+        views.forEach {
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-        })
-        
+        }
+
         setViewConstraints()
     }
-    
+
     private func setViewConstraints() {
         NSLayoutConstraint.activate([
             historicalPriceGraphView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -95,17 +92,16 @@ final class CompanyInfoVC: UIViewController {
 
             priceChangeLabelView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             priceChangeLabelView.topAnchor.constraint(equalTo: self.historicalPriceGraphView.bottomAnchor, constant: 5),
-            
+
             currentPriceLabelView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             currentPriceLabelView.topAnchor.constraint(equalTo: self.historicalPriceGraphView.bottomAnchor, constant: 5),
-            
+
             companyDescriptionLbl.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             companyDescriptionLbl.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             companyDescriptionLbl.topAnchor.constraint(equalTo: self.priceChangeLabelView.bottomAnchor, constant: 8),
             companyDescriptionLbl.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -5)
         ])
     }
-    
 }
 
 extension CompanyInfoVC: StocksListVCDelegate {
