@@ -91,21 +91,21 @@ final class CompanyInfoVC: UIViewController {
 
     private func setViewConstraints() {
         NSLayoutConstraint.activate([
-            historicalPriceGraphView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            historicalPriceGraphView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            historicalPriceGraphView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            historicalPriceGraphView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            historicalPriceGraphView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            historicalPriceGraphView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             historicalPriceGraphView.heightAnchor.constraint(equalToConstant: 200),
 
-            priceChangeLabelView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            priceChangeLabelView.topAnchor.constraint(equalTo: self.historicalPriceGraphView.bottomAnchor, constant: 5),
+            priceChangeLabelView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            priceChangeLabelView.topAnchor.constraint(equalTo: historicalPriceGraphView.bottomAnchor, constant: 5),
 
-            currentPriceLabelView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            currentPriceLabelView.topAnchor.constraint(equalTo: self.historicalPriceGraphView.bottomAnchor, constant: 5),
+            currentPriceLabelView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            currentPriceLabelView.topAnchor.constraint(equalTo: historicalPriceGraphView.bottomAnchor, constant: 5),
 
-            companyDescriptionLbl.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            companyDescriptionLbl.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            companyDescriptionLbl.topAnchor.constraint(equalTo: self.priceChangeLabelView.bottomAnchor, constant: 8),
-            companyDescriptionLbl.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -5)
+            companyDescriptionLbl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            companyDescriptionLbl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            companyDescriptionLbl.topAnchor.constraint(equalTo: priceChangeLabelView.bottomAnchor, constant: 8),
+            companyDescriptionLbl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5)
         ])
     }
 }

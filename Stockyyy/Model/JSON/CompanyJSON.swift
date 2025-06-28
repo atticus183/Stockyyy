@@ -29,7 +29,7 @@ extension CompanyJSON {
 
     var priceNumberFormatter: NumberFormatter {
         let nf = NumberFormatter()
-        nf.currencyCode = self.currency
+        nf.currencyCode = currency
         nf.numberStyle = .currency
 
         return nf
@@ -55,19 +55,19 @@ extension CompanyJSON {
     // MARK: Computed Properties
 
     var priceFormatted: String? {
-        let nsNumber = NSNumber(value: self.price ?? 0.0)
+        let nsNumber = NSNumber(value: price ?? 0.0)
 
         return priceNumberFormatter.string(from: nsNumber)
     }
 
     var priceFormattedAsDecimal: String? {
-        let nsNumber = NSNumber(value: self.price ?? 0.0)
+        let nsNumber = NSNumber(value: price ?? 0.0)
 
         return decimalFormatter.string(from: nsNumber)
     }
 
     var changesFormatted: String? {
-        let nsNumber = NSNumber(value: self.changes ?? 0.0)
+        let nsNumber = NSNumber(value: changes ?? 0.0)
 
         return priceNumberFormatter.string(from: nsNumber)
     }

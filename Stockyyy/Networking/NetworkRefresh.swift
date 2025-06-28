@@ -2,7 +2,7 @@ import Foundation
 
 // Note - separated this from the StocksNetworkManager class to make it easier to test
 // Note - not using right now 11/15/2020
-//struct NetworkRefresh {
+// struct NetworkRefresh {
 //    typealias UDKey = String
 //    private let userDefaults = UserDefaults.standard
 //
@@ -28,4 +28,4 @@ import Foundation
 //        let dateDifference = Date.numberOf(.day, from: lastRefreshDate, to: Date()) ?? 0
 //        return dateDifference > 0 ? true : false
 //    }
-//}
+// }

@@ -24,8 +24,8 @@ final class HistoricalPriceGraphView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.layer.cornerRadius = 5
-        self.clipsToBounds = true
+        layer.cornerRadius = 5
+        clipsToBounds = true
 
         addChartToView()
         customizeChartView()
@@ -38,7 +38,7 @@ final class HistoricalPriceGraphView: UIView {
     // MARK: - Methods
 
     private func addChartToView() {
-        self.addSubview(lineChartView)
+        addSubview(lineChartView)
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([

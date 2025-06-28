@@ -94,17 +94,17 @@ final class StocksListVC: UIViewController {
     }
 
     private func setupTableView() {
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
 
         // MARK: TableView Delegate
 
         tableView.delegate = self
 
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
-            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 2)
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2)
         ])
     }
 

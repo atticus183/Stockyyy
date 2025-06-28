@@ -16,7 +16,7 @@ final class StocksDatasource: NSObject {
     // MARK: - Initialization
 
     init(companies: [CompanyJSON]) {
-        self.allCompanies = companies.sorted(by: { $0.symbol < $1.symbol })
+        allCompanies = companies.sorted(by: { $0.symbol < $1.symbol })
     }
 
     // MARK: - Methods

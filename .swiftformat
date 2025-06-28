@@ -13,6 +13,7 @@
      redundantNilInit, \
      redundantOptionalBinding, \
      redundantParens, \
+     redundantSelf, \
      sortedImports, \
      sortSwitchCases, \
      spaceAroundBraces, \

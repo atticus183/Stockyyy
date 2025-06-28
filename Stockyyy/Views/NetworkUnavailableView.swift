@@ -51,7 +51,7 @@ final class NetworkUnavailableView: UIView {
     // MARK: - Methods
 
     private func setupView() {
-        self.backgroundColor = .clear
+        backgroundColor = .clear
 
         stackView.addArrangedSubview(iconImgView)
         stackView.addArrangedSubview(messageLbl)
