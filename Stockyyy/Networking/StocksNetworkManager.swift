@@ -1,21 +1,22 @@
-//----API DOCUMENTATION----
-//https://financialmodelingprep.com/developer/docs
+// ----API DOCUMENTATION----
+// https://financialmodelingprep.com/developer/docs
 
 import Foundation
 
 final class StocksNetworkManager {
-    
+
     init() {}
-    
+
     #warning("Please replace FinancialModelingPrep.APIKEY with the key provided in the email.")
     private var apiKey = FinancialModelingPrep.APIKEY
-    
-    //MARK: Endpoint paths
+
+    // MARK: Endpoint paths
+
     enum Endpoint {
         case stockList
         case companyProfile(String)
         case historicalPrices(String)
-        
+
         var endpointString: String {
             switch self {
             case .stockList:
@@ -23,47 +24,47 @@ final class StocksNetworkManager {
             case .companyProfile(let symbol):
                 return "profile/\(symbol)?"
             case .historicalPrices(let symbol):
-                return "historical-price-full/\(symbol)?serietype=line&" //serietype is not spelled incorrectly.  Double checked with API doc.
+                return "historical-price-full/\(symbol)?serietype=line&" // serietype is not spelled incorrectly.  Double checked with API doc.
             }
         }
     }
-    
+
     private let baseURL = "https://financialmodelingprep.com/api/v3/"
-    
+
     func getData<T: Decodable>(for type: T.Type, from endPoint: Endpoint, completion: @escaping (Result<[T], StockError>) -> Void) {
-        //Check if valid URL.  If not, throw badURL error
+        // Check if valid URL.  If not, throw badURL error
         guard let endPointURL = URL(string: baseURL + endPoint.endpointString + "apikey=\(apiKey)") else {
             completion(.failure(.invalidURL))
             return
         }
-        
-        URLSession.shared.dataTask(with: endPointURL) { (data, response, error) in
+
+        URLSession.shared.dataTask(with: endPointURL) { data, response, error in
             if let _ = error {
                 completion(.failure(.requestError))
             }
-            
+
             if let httpResponse = response as? HTTPURLResponse {
-                guard 200...299 ~= httpResponse.statusCode else {
+                guard 200 ... 299 ~= httpResponse.statusCode else {
                     completion(.failure(.httpError(httpResponse.statusCode)))
                     return
                 }
             }
-            
-            guard let data = data else {
+
+            guard let data else {
                 completion(.failure(.dataError))
                 return
             }
-            
+
             let jsonDecoder = JSONDecoder()
             jsonDecoder.dateDecodingStrategy = .formatted(CompanyJSON.dateFormatter)
-            
+
             do {
                 guard let jsonString = String(data: data, encoding: .utf8) else {
                     completion(.failure(.dataError))
                     return
                 }
-                
-                //Checks to see if a single object or an array of objects.  If single, set to an array after decoding.  If there is a more "Swifty" way to do this, I would love to discuss.
+
+                // Checks to see if a single object or an array of objects.  If single, set to an array after decoding.  If there is a more "Swifty" way to do this, I would love to discuss.
                 if jsonString.prefix(1) == "[" {
                     let decodedJSON = try jsonDecoder.decode([T].self, from: data)
                     completion(.success(decodedJSON))
@@ -79,7 +80,8 @@ final class StocksNetworkManager {
     }
 }
 
-//MARK: Custom error type
+// MARK: Custom error type
+
 extension StocksNetworkManager {
     enum StockError: Error {
         case invalidURL
@@ -87,7 +89,7 @@ extension StocksNetworkManager {
         case requestError
         case dataError
         case jsonDecodeError
-        
+
         var errorDescription: String {
             switch self {
             case .invalidURL:
