@@ -13,19 +13,4 @@ final class CustomActivityView: UIAlertController {
 
         return alert
     }
-
-    static func startActivityView() {
-        // Source: https://stackoverflow.com/questions/27960556/loading-an-overlay-when-running-long-tasks-in-ios
-        let alert = CustomActivityView.createAlert()
-        let presentingVC = UIApplication.getTopMostViewController()!
-        presentingVC.present(alert, animated: true, completion: nil)
-    }
-
-    // Be sure to call this method on the main thread
-    static func stopActivityView() {
-        let presentingVC = UIApplication.getTopMostViewController()!
-        if let alertController = presentingVC as? CustomActivityView {
-            alertController.dismiss(animated: true, completion: nil)
-        }
-    }
 }

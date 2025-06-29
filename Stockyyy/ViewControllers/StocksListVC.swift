@@ -109,24 +109,26 @@ final class StocksListVC: UIViewController {
     }
 
     private func getStocks() {
-        // Push startActivityView method to main thread because this method is called within the networkManager closure on a custom queue.
         if networkManager.isConnected {
-            DispatchQueue.main.async { CustomActivityView.startActivityView() }
+            startActivityView()
             stocksNetworkManager.getData(for: CompanyJSON.self, from: .stockList) { [weak self] result in
                 switch result {
                 case .success(let companyJSON):
                     DispatchQueue.main.async {
-                        CustomActivityView.stopActivityView()
                         self?.datasource = StocksDatasource(companies: companyJSON)
                         self?.tableView.dataSource = self?.datasource
                         self?.tableView.reloadData()
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        CustomActivityView.stopActivityView()
-                        self?.alert(message: "There was an error retrieving the symbols. \(error.errorDescription)", title: "ERROR")
+                        self?.alert(
+                            message: "There was an error retrieving the symbols. \(error.errorDescription)",
+                            title: "ERROR"
+                        )
                     }
                 }
+
+                self?.stopActivityView()
             }
         }
     }
@@ -148,8 +150,12 @@ extension StocksListVC: UITableViewDelegate {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    CustomActivityView.stopActivityView()
-                    self?.alert(message: "There was an error retrieving the company profile. \(error.errorDescription)", title: "ERROR")
+                    self?.stopActivityView()
+
+                    self?.alert(
+                        message: "There was an error retrieving the company profile. \(error.errorDescription)",
+                        title: "ERROR"
+                    )
                 }
             }
         }

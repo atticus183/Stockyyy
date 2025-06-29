@@ -87,7 +87,6 @@ final class StockCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        // NOTE: Setup not needed.  Not using SB.
     }
 
     // MARK: - Methods
