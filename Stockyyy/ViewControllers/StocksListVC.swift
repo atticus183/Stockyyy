@@ -29,7 +29,7 @@ final class StocksListVC: UIViewController {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.backgroundColor = .systemBackground
         tv.accessibilityIdentifier = "StocksListVC_Table"
-        tv.register(StockCell.self, forCellReuseIdentifier: StockCell.identifier)
+        tv.register(StockCell.self, forCellReuseIdentifier: StockCell.reuseIdentifier)
         tv.translatesAutoresizingMaskIntoConstraints = false
 
         return tv

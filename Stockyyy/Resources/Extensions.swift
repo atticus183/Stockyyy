@@ -35,6 +35,12 @@ extension UIApplication {
     }
 }
 
+extension UITableViewCell {
+    static var reuseIdentifier: String {
+        String(describing: self)
+    }
+}
+
 extension UIViewController {
     func alert(message: String, title: String? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

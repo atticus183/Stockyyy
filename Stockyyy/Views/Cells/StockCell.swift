@@ -11,8 +11,6 @@ final class StockCell: UITableViewCell {
 
     // MARK: - Properties
 
-    static let identifier = "StockCell"
-
     var company: CompanyJSON? {
         didSet {
             guard let company else { return }

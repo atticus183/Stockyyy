@@ -54,7 +54,10 @@ extension StocksDatasource: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.identifier, for: indexPath) as? StockCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: StockCell.reuseIdentifier,
+            for: indexPath
+        ) as? StockCell else { return UITableViewCell() }
 
         let company = isSearching ? filteredCompanies[indexPath.row] : allCompanies[indexPath.row]
         cell.company = company
