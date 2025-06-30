@@ -1,7 +1,7 @@
 import UIKit
 
 protocol StocksListVCDelegate: AnyObject {
-    func tickerTapped(_ company: CompanyJSON)
+    func tickerTapped(_ companyProfile: CompanyProfile)
 }
 
 final class StocksListVC: UIViewController {
@@ -111,11 +111,11 @@ final class StocksListVC: UIViewController {
     private func getStocks() {
         if networkManager.isConnected {
             startActivityView()
-            stocksNetworkManager.getData(for: CompanyJSON.self, from: .stockList) { [weak self] result in
+            stocksNetworkManager.getData(for: Stock.self, from: .stockList) { [weak self] result in
                 switch result {
-                case .success(let companyJSON):
+                case .success(let stocks):
                     DispatchQueue.main.async {
-                        self?.datasource = StocksDatasource(companies: companyJSON)
+                        self?.datasource = StocksDatasource(stocks: stocks)
                         self?.tableView.dataSource = self?.datasource
                         self?.tableView.reloadData()
                     }
@@ -140,11 +140,11 @@ extension StocksListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tappedCompany = datasource?.company(at: indexPath) else { return }
 
-        stocksNetworkManager.getData(for: CompanyJSON.self, from: .companyProfile(tappedCompany.symbol)) { [weak self] result in
+        stocksNetworkManager.getData(for: CompanyProfile.self, from: .companyProfile(tappedCompany.symbol)) { [weak self] result in
             switch result {
-            case .success(let companyJSON):
+            case .success(let profile):
                 DispatchQueue.main.async {
-                    self?.delegate?.tickerTapped(companyJSON.first!)
+                    self?.delegate?.tickerTapped(profile.first!)
                     guard let companyInfoVC = self?.delegate as? CompanyInfoVC else { return }
                     self?.splitViewController?.showDetailViewController(companyInfoVC, sender: nil)
                 }

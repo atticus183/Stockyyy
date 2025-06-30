@@ -5,9 +5,9 @@ final class CompanyDetailTitleView: UIView {
 
     // MARK: - Properties
 
-    var company: CompanyJSON? {
+    var profile: CompanyProfile? {
         didSet {
-            if let url = URL(string: company?.image ?? "") {
+            if let url = URL(string: profile?.image ?? "") {
                 companyLogoImgView.kf.setImage(with: url, placeholder: UIImage(systemName: "questionmark.circle.fill"))
                 companyLogoImgViewConstraints = [
                     companyLogoImgView.heightAnchor.constraint(equalToConstant: 35),
@@ -20,7 +20,7 @@ final class CompanyDetailTitleView: UIView {
                 ]
             }
 
-            companyLbl.text = company?.symbol ?? ""
+            companyLbl.text = profile?.symbol ?? ""
         }
     }
 

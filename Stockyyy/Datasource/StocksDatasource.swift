@@ -4,32 +4,32 @@ final class StocksDatasource: NSObject {
 
     // MARK: - Properties
 
-    private var allCompanies: [CompanyJSON]
-    private var filteredCompanies = [CompanyJSON]()
+    private var allStocks: [Stock]
+    private var filteredCompanies = [Stock]()
 
     var numberOfCompaniesInDatasource: Int {
-        isSearching ? filteredCompanies.count : allCompanies.count
+        isSearching ? filteredCompanies.count : allStocks.count
     }
 
     private var isSearching = false
 
     // MARK: - Initialization
 
-    init(companies: [CompanyJSON]) {
-        allCompanies = companies.sorted(by: { $0.symbol < $1.symbol })
+    init(stocks: [Stock]) {
+        allStocks = stocks.sorted(by: { $0.symbol < $1.symbol })
     }
 
     // MARK: - Methods
 
-    func company(at indexPath: IndexPath) -> CompanyJSON? {
-        isSearching ? filteredCompanies[indexPath.row] : allCompanies[indexPath.row]
+    func company(at indexPath: IndexPath) -> Stock? {
+        isSearching ? filteredCompanies[indexPath.row] : allStocks[indexPath.row]
     }
 
     func searchForCompany(with searchText: String) {
         isSearching = searchText.isEmpty ? false : true
 
         if isSearching {
-            filteredCompanies = allCompanies.filter { company -> Bool in
+            filteredCompanies = allStocks.filter { company -> Bool in
                 let exchange = company.exchange ?? ""
                 let name = company.name ?? ""
 
@@ -59,7 +59,7 @@ extension StocksDatasource: UITableViewDataSource {
             for: indexPath
         ) as? StockCell else { return UITableViewCell() }
 
-        let company = isSearching ? filteredCompanies[indexPath.row] : allCompanies[indexPath.row]
+        let company = isSearching ? filteredCompanies[indexPath.row] : allStocks[indexPath.row]
         cell.company = company
 
         return cell

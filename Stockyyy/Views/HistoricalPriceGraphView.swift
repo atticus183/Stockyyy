@@ -7,7 +7,7 @@ final class HistoricalPriceGraphView: UIView {
 
     lazy var lineChartView = LineChartView()
 
-    var historicalPrices: CompanyHistoricalPriceJSON? {
+    var historicalPrices: HistoricalPrice? {
         didSet {
             guard let historicalPrices, let prices = historicalPrices.historical else { return }
             let numberOfWorkDaysToInclude = 261 * 5 // 261 workdays in a year x 5 years
@@ -49,7 +49,7 @@ final class HistoricalPriceGraphView: UIView {
         ])
     }
 
-    private func createDataEntries(priceData: [CompanyHistoricalPriceJSON.Historical]) -> [ChartDataEntry] {
+    private func createDataEntries(priceData: [HistoricalPrice.PriceData]) -> [ChartDataEntry] {
         var chartDataEntries = [ChartDataEntry]()
         for (index, historicalPrice) in priceData.enumerated() {
             let chartDataEntry = ChartDataEntry(x: Double(index), y: Double(historicalPrice.close ?? 0.0))

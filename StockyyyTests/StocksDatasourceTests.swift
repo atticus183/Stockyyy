@@ -8,18 +8,36 @@
 @testable import Stockyyy
 import XCTest
 
-class StocksDatasourceTests: XCTestCase {
+final class StocksDatasourceTests: XCTestCase {
 
     var sut: StocksDatasource!
 
     override func setUp() {
         super.setUp()
 
-        let company1 = CompanyJSON(symbol: "AAPL", name: "Apple", price: 123.45, currency: "USD", ceo: "Tim Cook")
-        let company2 = CompanyJSON(symbol: "MSFT", name: "Microsoft", price: 216.59, currency: "USD", ceo: "Satya Nadella")
-        let company3 = CompanyJSON(symbol: "GOOGL", name: "Alphabet Inc", price: 1766.85, currency: "USD", ceo: "Sundar Pichai")
+        let company1 = Stock(
+            symbol: "AAPL",
+            name: "Apple",
+            price: 123.45,
+            exchange: "NASDAQ Global Select",
+            exchangeShortName: "NASDAQ"
+        )
+        let company2 = Stock(
+            symbol: "MSFT",
+            name: "Microsoft",
+            price: 216.59,
+            exchange: "NASDAQ Global Select",
+            exchangeShortName: "NASDAQ"
+        )
+        let company3 = Stock(
+            symbol: "GOOGL",
+            name: "Alphabet Inc",
+            price: 1766.85,
+            exchange: "NASDAQ Global Select",
+            exchangeShortName: "NASDAQ"
+        )
 
-        sut = StocksDatasource(companies: [company1, company2, company3])
+        sut = StocksDatasource(stocks: [company1, company2, company3])
     }
 
     override func tearDown() {

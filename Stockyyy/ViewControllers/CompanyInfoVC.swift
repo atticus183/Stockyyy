@@ -4,16 +4,17 @@ final class CompanyInfoVC: UIViewController {
 
     // MARK: - Properties
 
-    var passedCompany: CompanyJSON? {
+    var profile: CompanyProfile? {
         didSet {
-            guard let passedCompany else { return }
-            companytitleView.company = passedCompany
-            currentPriceLabelView.primaryLbl.text = passedCompany.priceFormatted
-            priceChangeLabelView.primaryLbl.text = passedCompany.changesFormatted
-            priceChangeLabelView.primaryLbl.textColor = passedCompany.changes ?? 0.0 < 0 ? .systemRed : .systemGreen
-            companyDescriptionLbl.text = passedCompany.description ?? "Company description not available."
+            guard let profile else { return }
 
-            stocksNetworkManager.getData(for: CompanyHistoricalPriceJSON.self, from: .historicalPrices(passedCompany.symbol)) { [weak self] result in
+            companyTitleView.profile = profile
+            currentPriceLabelView.primaryLbl.text = profile.priceFormatted
+            priceChangeLabelView.primaryLbl.text = profile.changesFormatted
+            priceChangeLabelView.primaryLbl.textColor = profile.changes ?? 0.0 < 0 ? .systemRed : .systemGreen
+            companyDescriptionLbl.text = profile.description ?? "Company description not available."
+
+            stocksNetworkManager.getData(for: HistoricalPrice.self, from: .historicalPrices(profile.symbol)) { [weak self] result in
                 switch result {
                 case .success(let prices):
                     DispatchQueue.main.async {
@@ -26,13 +27,13 @@ final class CompanyInfoVC: UIViewController {
         }
     }
 
-    private var historicalPrices: CompanyHistoricalPriceJSON? {
+    private var historicalPrices: HistoricalPrice? {
         didSet { historicalPriceGraphView.historicalPrices = historicalPrices }
     }
 
     private lazy var stocksNetworkManager = StocksNetworkManager()
 
-    private lazy var companytitleView = CompanyDetailTitleView()
+    private lazy var companyTitleView = CompanyDetailTitleView()
     private lazy var historicalPriceGraphView = HistoricalPriceGraphView()
 
     lazy var currentPriceLabelView: LabelViewWithDescription = {
@@ -67,11 +68,16 @@ final class CompanyInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.titleView = companytitleView
+        navigationItem.titleView = companyTitleView
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .systemBackground
 
-        addSubviews(views: historicalPriceGraphView, priceChangeLabelView, currentPriceLabelView, companyDescriptionLbl)
+        addSubviews(
+            views: historicalPriceGraphView,
+            priceChangeLabelView,
+            currentPriceLabelView,
+            companyDescriptionLbl
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -113,7 +119,7 @@ final class CompanyInfoVC: UIViewController {
 // MARK: - StocksListVCDelegate
 
 extension CompanyInfoVC: StocksListVCDelegate {
-    func tickerTapped(_ company: CompanyJSON) {
-        passedCompany = company
+    func tickerTapped(_ companyProfile: CompanyProfile) {
+        profile = companyProfile
     }
 }
