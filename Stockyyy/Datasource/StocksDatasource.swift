@@ -16,7 +16,9 @@ final class StocksDatasource: NSObject {
     // MARK: - Initialization
 
     init(stocks: [Stock]) {
-        allStocks = stocks.sorted(by: { $0.symbol < $1.symbol })
+        allStocks = stocks
+            .filter { $0.exchangeShortName == "NASDAQ" || $0.exchangeShortName == "NYSE" }
+            .sorted(by: { $0.symbol < $1.symbol })
     }
 
     // MARK: - Methods
