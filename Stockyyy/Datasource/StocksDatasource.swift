@@ -1,26 +1,35 @@
 import UIKit
 
-final class StocksDatasource: NSObject, UITableViewDataSource {
+final class StocksDatasource: NSObject {
 
-    private var allCompanies: [CompanyJSON]
-    private var filteredCompanies = [CompanyJSON]()
+    // MARK: - Properties
 
-    // Used for unit tests
+    private var allStocks: [Stock]
+    private var filteredCompanies = [Stock]()
+
     var numberOfCompaniesInDatasource: Int {
-        return isSearching ? filteredCompanies.count : allCompanies.count
+        isSearching ? filteredCompanies.count : allStocks.count
     }
 
     private var isSearching = false
 
-    func company(at indexPath: IndexPath) -> CompanyJSON? {
-        return isSearching ? filteredCompanies[indexPath.row] : allCompanies[indexPath.row]
+    // MARK: - Initialization
+
+    init(stocks: [Stock]) {
+        allStocks = stocks.sorted(by: { $0.symbol < $1.symbol })
+    }
+
+    // MARK: - Methods
+
+    func company(at indexPath: IndexPath) -> Stock? {
+        isSearching ? filteredCompanies[indexPath.row] : allStocks[indexPath.row]
     }
 
     func searchForCompany(with searchText: String) {
-        isSearching = searchText == "" ? false : true
+        isSearching = searchText.isEmpty ? false : true
 
         if isSearching {
-            filteredCompanies = allCompanies.filter { company -> Bool in
+            filteredCompanies = allStocks.filter { company -> Bool in
                 let exchange = company.exchange ?? ""
                 let name = company.name ?? ""
 
@@ -34,19 +43,23 @@ final class StocksDatasource: NSObject, UITableViewDataSource {
             filteredCompanies.removeAll()
         }
     }
+}
 
-    init(companies: [CompanyJSON]) {
-        self.allCompanies = companies.sorted(by: { $0.symbol < $1.symbol })
-    }
+// MARK: - UITableViewDataSource
+
+extension StocksDatasource: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearching ? filteredCompanies.count : allCompanies.count
+        numberOfCompaniesInDatasource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.identifier, for: indexPath) as? StockCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: StockCell.reuseIdentifier,
+            for: indexPath
+        ) as? StockCell else { return UITableViewCell() }
 
-        let company = isSearching ? filteredCompanies[indexPath.row] : allCompanies[indexPath.row]
+        let company = isSearching ? filteredCompanies[indexPath.row] : allStocks[indexPath.row]
         cell.company = company
 
         return cell

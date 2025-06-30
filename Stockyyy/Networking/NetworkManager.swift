@@ -14,9 +14,13 @@ final class NetworkMonitor {
 
     private let networkQueue = DispatchQueue(label: "NetworkMonitor")
 
+    // MARK: - Initialization
+
     private init() {
         networkMonitor = NWPathMonitor()
     }
+
+    // MARK: - Methods
 
     // this is called on the receiving VC
     func startMonitor() {

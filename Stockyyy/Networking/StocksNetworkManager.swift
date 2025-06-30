@@ -24,7 +24,7 @@ final class StocksNetworkManager {
             case .companyProfile(let symbol):
                 return "profile/\(symbol)?"
             case .historicalPrices(let symbol):
-                return "historical-price-full/\(symbol)?serietype=line&" // serietype is not spelled incorrectly.  Double checked with API doc.
+                return "historical-price-full/\(symbol)?serietype=line&"
             }
         }
     }
@@ -56,7 +56,7 @@ final class StocksNetworkManager {
             }
 
             let jsonDecoder = JSONDecoder()
-            jsonDecoder.dateDecodingStrategy = .formatted(CompanyJSON.dateFormatter)
+            jsonDecoder.dateDecodingStrategy = .formatted(Stock.dateFormatter)
 
             do {
                 guard let jsonString = String(data: data, encoding: .utf8) else {
@@ -64,7 +64,6 @@ final class StocksNetworkManager {
                     return
                 }
 
-                // Checks to see if a single object or an array of objects.  If single, set to an array after decoding.  If there is a more "Swifty" way to do this, I would love to discuss.
                 if jsonString.prefix(1) == "[" {
                     let decodedJSON = try jsonDecoder.decode([T].self, from: data)
                     completion(.success(decodedJSON))
@@ -80,7 +79,7 @@ final class StocksNetworkManager {
     }
 }
 
-// MARK: Custom error type
+// MARK: - StockError
 
 extension StocksNetworkManager {
     enum StockError: Error {

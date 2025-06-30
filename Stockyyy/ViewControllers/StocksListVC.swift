@@ -1,10 +1,12 @@
 import UIKit
 
 protocol StocksListVCDelegate: AnyObject {
-    func tickerTapped(_ company: CompanyJSON)
+    func tickerTapped(_ companyProfile: CompanyProfile)
 }
 
 final class StocksListVC: UIViewController {
+
+    // MARK: - Properties
 
     // This class monitors the devices network connection
     private let networkManager = NetworkMonitor.shared
@@ -19,7 +21,6 @@ final class StocksListVC: UIViewController {
         sc.searchResultsUpdater = self
         sc.obscuresBackgroundDuringPresentation = false
         sc.searchBar.placeholder = "Search"
-        // set to the navigationItem in the setupNavBar method
 
         return sc
     }()
@@ -28,12 +29,15 @@ final class StocksListVC: UIViewController {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.backgroundColor = .systemBackground
         tv.accessibilityIdentifier = "StocksListVC_Table"
-        tv.register(StockCell.self, forCellReuseIdentifier: StockCell.identifier)
+        tv.register(StockCell.self, forCellReuseIdentifier: StockCell.reuseIdentifier)
         tv.translatesAutoresizingMaskIntoConstraints = false
+
         return tv
     }()
 
     private lazy var networkUnavailableView = NetworkUnavailableView()
+
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +69,8 @@ final class StocksListVC: UIViewController {
         networkManager.stopMonitoring()
     }
 
+    // MARK: - Methods
+
     private func setupNavBar() {
         title = "Stocks"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -88,71 +94,79 @@ final class StocksListVC: UIViewController {
     }
 
     private func setupTableView() {
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
 
         // MARK: TableView Delegate
 
         tableView.delegate = self
 
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
-            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 2)
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2)
         ])
     }
 
     private func getStocks() {
-        // Push startActivityView method to main thread because this method is called within the networkManager closure on a custom queue.
         if networkManager.isConnected {
-            DispatchQueue.main.async { CustomActivityView.startActivityView() }
-            stocksNetworkManager.getData(for: CompanyJSON.self, from: .stockList) { [weak self] result in
+            startActivityView()
+            stocksNetworkManager.getData(for: Stock.self, from: .stockList) { [weak self] result in
                 switch result {
-                case .success(let companyJSON):
+                case .success(let stocks):
                     DispatchQueue.main.async {
-                        CustomActivityView.stopActivityView()
-                        self?.datasource = StocksDatasource(companies: companyJSON)
+                        self?.datasource = StocksDatasource(stocks: stocks)
                         self?.tableView.dataSource = self?.datasource
                         self?.tableView.reloadData()
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        CustomActivityView.stopActivityView()
-                        self?.alert(message: "There was an error retrieving the symbols. \(error.errorDescription)", title: "ERROR")
+                        self?.alert(
+                            message: "There was an error retrieving the symbols. \(error.errorDescription)",
+                            title: "ERROR"
+                        )
                     }
                 }
+
+                self?.stopActivityView()
             }
         }
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension StocksListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tappedCompany = datasource?.company(at: indexPath) else { return }
 
-        stocksNetworkManager.getData(for: CompanyJSON.self, from: .companyProfile(tappedCompany.symbol)) { [weak self] result in
+        stocksNetworkManager.getData(for: CompanyProfile.self, from: .companyProfile(tappedCompany.symbol)) { [weak self] result in
             switch result {
-            case .success(let companyJSON):
+            case .success(let profile):
                 DispatchQueue.main.async {
-                    self?.delegate?.tickerTapped(companyJSON.first!)
+                    self?.delegate?.tickerTapped(profile.first!)
                     guard let companyInfoVC = self?.delegate as? CompanyInfoVC else { return }
                     self?.splitViewController?.showDetailViewController(companyInfoVC, sender: nil)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    CustomActivityView.stopActivityView()
-                    self?.alert(message: "There was an error retrieving the company profile. \(error.errorDescription)", title: "ERROR")
+                    self?.stopActivityView()
+
+                    self?.alert(
+                        message: "There was an error retrieving the company profile. \(error.errorDescription)",
+                        title: "ERROR"
+                    )
                 }
             }
         }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75.0
+        75.0
     }
 }
 
-// MARK: Search Delegate
+// MARK: - UISearchResultsUpdating
 
 extension StocksListVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {

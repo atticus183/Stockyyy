@@ -1,23 +1,15 @@
 import Foundation
 
-struct CompanyJSON: Codable {
-    // Properties set with Symbols List endpoint
-    var symbol: String
-    var name: String?
-    var price: Double?
-    var exchange: String?
-
-    // Properties set with Company Profile endpoint
-    var changes: Double?
-    var currency: String?
-    var website: String?
-    var description: String?
-    var ceo: String?
-    var image: String?
-    var ipoDate: String? // some companies are formatted yyyy/MM/ddd, some MM/dd/YY.
+// https://site.financialmodelingprep.com/developer/docs#symbol-list-stock-list
+struct Stock: Decodable {
+    let symbol: String
+    let name: String?
+    let price: Double?
+    let exchange: String?
+    let exchangeShortName: String?
 }
 
-extension CompanyJSON {
+extension Stock {
     // Used to convert the provided string date to a Date object when decoding.
     static var dateFormatter: DateFormatter {
         let df = DateFormatter()
@@ -25,11 +17,9 @@ extension CompanyJSON {
         return df
     }
 
-    // MARK: Formatters
-
     var priceNumberFormatter: NumberFormatter {
         let nf = NumberFormatter()
-        nf.currencyCode = self.currency
+        nf.currencyCode = "USD"
         nf.numberStyle = .currency
 
         return nf
@@ -52,23 +42,29 @@ extension CompanyJSON {
         return df
     }
 
-    // MARK: Computed Properties
+    // MARK: - Computed Properties
 
     var priceFormatted: String? {
-        let nsNumber = NSNumber(value: self.price ?? 0.0)
+        let nsNumber = NSNumber(value: price ?? 0.0)
 
         return priceNumberFormatter.string(from: nsNumber)
     }
 
     var priceFormattedAsDecimal: String? {
-        let nsNumber = NSNumber(value: self.price ?? 0.0)
+        let nsNumber = NSNumber(value: price ?? 0.0)
 
         return decimalFormatter.string(from: nsNumber)
     }
-
-    var changesFormatted: String? {
-        let nsNumber = NSNumber(value: self.changes ?? 0.0)
-
-        return priceNumberFormatter.string(from: nsNumber)
-    }
 }
+
+/*
+ [
+     {
+         "symbol": "PWP",
+         "exchange": "NASDAQ Global Select",
+         "exchangeShortName": "NASDAQ",
+         "price": "8.13",
+         "name": "Perella Weinberg Partners"
+     }
+ ]
+ */

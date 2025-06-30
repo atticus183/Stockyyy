@@ -3,9 +3,11 @@ import UIKit
 
 final class HistoricalPriceGraphView: UIView {
 
+    // MARK: - Properties
+
     lazy var lineChartView = LineChartView()
 
-    var historicalPrices: CompanyHistoricalPriceJSON? {
+    var historicalPrices: HistoricalPrice? {
         didSet {
             guard let historicalPrices, let prices = historicalPrices.historical else { return }
             let numberOfWorkDaysToInclude = 261 * 5 // 261 workdays in a year x 5 years
@@ -17,11 +19,13 @@ final class HistoricalPriceGraphView: UIView {
         }
     }
 
+    // MARK: - Initialization
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.layer.cornerRadius = 5
-        self.clipsToBounds = true
+        layer.cornerRadius = 5
+        clipsToBounds = true
 
         addChartToView()
         customizeChartView()
@@ -31,8 +35,10 @@ final class HistoricalPriceGraphView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Methods
+
     private func addChartToView() {
-        self.addSubview(lineChartView)
+        addSubview(lineChartView)
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
@@ -43,9 +49,7 @@ final class HistoricalPriceGraphView: UIView {
         ])
     }
 
-    // MARK: Create ChartDataEntry items
-
-    private func createDataEntries(priceData: [CompanyHistoricalPriceJSON.Historical]) -> [ChartDataEntry] {
+    private func createDataEntries(priceData: [HistoricalPrice.PriceData]) -> [ChartDataEntry] {
         var chartDataEntries = [ChartDataEntry]()
         for (index, historicalPrice) in priceData.enumerated() {
             let chartDataEntry = ChartDataEntry(x: Double(index), y: Double(historicalPrice.close ?? 0.0))
@@ -94,5 +98,7 @@ final class HistoricalPriceGraphView: UIView {
         lineChartView.animate(xAxisDuration: 1)
     }
 }
+
+// MARK: - ChartViewDelegate
 
 extension HistoricalPriceGraphView: ChartViewDelegate {}

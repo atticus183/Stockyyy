@@ -8,7 +8,7 @@
 @testable import Stockyyy
 import XCTest
 
-class StocksNetworkManagerTests: XCTestCase {
+final class StocksNetworkManagerTests: XCTestCase {
 
     var sut: StocksNetworkManager!
 
@@ -27,10 +27,10 @@ class StocksNetworkManagerTests: XCTestCase {
     func test_stockList_endpoint() {
         let promise = expectation(description: "Data downloaded for the stockList endpoint")
 
-        sut.getData(for: CompanyJSON.self, from: .stockList) { result in
+        sut.getData(for: Stock.self, from: .stockList) { result in
             switch result {
-            case .success(let companyJSON):
-                if companyJSON.count > 0 {
+            case .success(let stocks):
+                if stocks.count > 0 {
                     promise.fulfill()
                 }
             case .failure:
@@ -45,10 +45,10 @@ class StocksNetworkManagerTests: XCTestCase {
         let symbolToGet = "AAPL"
         let promise = expectation(description: "Data downloaded for the companyProfile endpoint")
 
-        sut.getData(for: CompanyJSON.self, from: .companyProfile(symbolToGet)) { result in
+        sut.getData(for: Stock.self, from: .companyProfile(symbolToGet)) { result in
             switch result {
-            case .success(let companyJSON):
-                if companyJSON.first?.symbol == symbolToGet {
+            case .success(let Company):
+                if Company.first?.symbol == symbolToGet {
                     promise.fulfill()
                 }
             case .failure:
@@ -63,7 +63,7 @@ class StocksNetworkManagerTests: XCTestCase {
         let appleSymbol = "AAPL"
         let promise = expectation(description: "Data downloaded for the historicalPrices endpoint")
 
-        sut.getData(for: CompanyHistoricalPriceJSON.self, from: .historicalPrices(appleSymbol)) { result in
+        sut.getData(for: HistoricalPrice.self, from: .historicalPrices(appleSymbol)) { result in
             switch result {
             case .success(let companyHistoricalPrices):
                 if let company = companyHistoricalPrices.first, let historicalPrices = company.historical {

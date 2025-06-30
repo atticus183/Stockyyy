@@ -1,11 +1,13 @@
 import Kingfisher
 import UIKit
 
-class CompanyDetailTitleView: UIView {
+final class CompanyDetailTitleView: UIView {
 
-    var company: CompanyJSON? {
+    // MARK: - Properties
+
+    var profile: CompanyProfile? {
         didSet {
-            if let url = URL(string: company?.image ?? "") {
+            if let url = URL(string: profile?.image ?? "") {
                 companyLogoImgView.kf.setImage(with: url, placeholder: UIImage(systemName: "questionmark.circle.fill"))
                 companyLogoImgViewConstraints = [
                     companyLogoImgView.heightAnchor.constraint(equalToConstant: 35),
@@ -18,7 +20,7 @@ class CompanyDetailTitleView: UIView {
                 ]
             }
 
-            companyLbl.text = company?.symbol ?? ""
+            companyLbl.text = profile?.symbol ?? ""
         }
     }
 
@@ -52,15 +54,18 @@ class CompanyDetailTitleView: UIView {
         return sv
     }()
 
+    // MARK: - Initialization
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubViews(views: stackView)
     }
 
-    // Note - Not using SB
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Methods
 
     private func addSubViews(views: UIView...) {
         stackView.addArrangedSubview(companyLogoImgView)

@@ -35,11 +35,35 @@ extension UIApplication {
     }
 }
 
+extension UITableViewCell {
+    static var reuseIdentifier: String {
+        String(describing: self)
+    }
+}
+
 extension UIViewController {
-    func alert(message: String, title: String = "") {
+    func alert(message: String, title: String? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let OKAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(OKAction)
-        self.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true)
+    }
+
+    // Source: https://stackoverflow.com/questions/27960556/loading-an-overlay-when-running-long-tasks-in-ios
+    func startActivityView() {
+        DispatchQueue.main.async {
+            let alert = CustomActivityView.createAlert()
+            let presentingVC = UIApplication.getTopMostViewController()!
+            presentingVC.present(alert, animated: true)
+        }
+    }
+
+    func stopActivityView() {
+        DispatchQueue.main.async {
+            let presentingVC = UIApplication.getTopMostViewController()!
+            if let alertController = presentingVC as? CustomActivityView {
+                alertController.dismiss(animated: true)
+            }
+        }
     }
 }
